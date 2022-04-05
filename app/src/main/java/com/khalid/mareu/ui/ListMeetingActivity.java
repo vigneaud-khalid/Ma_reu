@@ -17,7 +17,7 @@ import butterknife.OnClick;
 
 public class ListMeetingActivity extends AppCompatActivity {
 
-    @BindView(R.id.menubar)
+    @BindView(R.id.menufilter)
     Toolbar mToolbar;
     @BindView(R.id.container)
     ViewPager mViewPager;
@@ -33,5 +33,10 @@ public class ListMeetingActivity extends AppCompatActivity {
     @OnClick(R.id.add_meeting)
     void addMeeting() {
         AddMeetingActivity.navigate(this);
+    }
+
+    @OnClick(R.id.menufilter)
+    void filter() {
+        // todo
     }
 }
