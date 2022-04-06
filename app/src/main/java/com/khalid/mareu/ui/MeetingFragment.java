@@ -1,4 +1,5 @@
 package com.khalid.mareu.ui;
+import android.util.Log;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +34,6 @@ public class MeetingFragment extends Fragment {
     private List<Meeting> mMeetings;
     private RecyclerView mRecyclerView;
 
-
-
     /**
      * Create and return a new instance
      * @return @{@link MeetingFragment}
@@ -47,6 +47,7 @@ public class MeetingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getMeetingApiService();
+        Log.d("rrrr","MeetingFragment");
     }
 
     @Override
@@ -57,6 +58,7 @@ public class MeetingFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        Log.d("rrrr","createview");
         return view;
     }
     /**

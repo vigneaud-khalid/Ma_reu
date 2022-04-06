@@ -1,5 +1,5 @@
 package com.khalid.mareu.ui;
-
+import android.util.Log;
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +48,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
         holder.mMeetingSubject.setText(meeting.getSubject());
+        Log.d(meeting.getSubject(),"okkkkkk");
         // le reste des infos
         // holder.mMeetingSubject.setText(meeting.getSubject());
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {

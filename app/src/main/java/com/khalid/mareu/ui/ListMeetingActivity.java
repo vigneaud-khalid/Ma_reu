@@ -1,20 +1,17 @@
 package com.khalid.mareu.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.khalid.mareu.R;
 import com.khalid.mareu.databinding.ActivityListMeetingBinding;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 import butterknife.OnClick;
+
 
 public class ListMeetingActivity extends AppCompatActivity {
 
@@ -29,6 +26,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         setSupportActionBar(binding.appbar);
+        Log.d("ListMeetingActivity", "llll");
     }
 
     @OnClick(R.id.add_meeting)
