@@ -15,7 +15,6 @@ import butterknife.OnClick;
 
 public class ListMeetingActivity extends AppCompatActivity {
 
-
     private ActivityListMeetingBinding binding;
 
     @Override
@@ -31,7 +30,9 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.add_meeting)
     void addMeeting() {
-        AddMeetingActivity.navigate(this);
+
+        Log.d("rrrr", "ListMeetingActivity ---  onclick");
+        FormActivity.navigate(this);
     }
 
     @Override
