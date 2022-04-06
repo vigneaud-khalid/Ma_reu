@@ -26,7 +26,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         setSupportActionBar(binding.appbar);
-        Log.d("ListMeetingActivity", "llll");
+        Log.d("rrrr", "ListMeetingActivity");
     }
 
     @OnClick(R.id.add_meeting)
