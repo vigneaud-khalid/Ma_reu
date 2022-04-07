@@ -60,6 +60,9 @@ public class MeetingFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        // 2 lignes ajoutées
+        mMeetings = mRep.getMeetings();
+        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
         Log.d("rrrr","createview");
         return view;
     }
