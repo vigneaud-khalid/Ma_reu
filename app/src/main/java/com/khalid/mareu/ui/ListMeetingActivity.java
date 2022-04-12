@@ -29,7 +29,12 @@ public class ListMeetingActivity extends AppCompatActivity {
         setSupportActionBar(binding.appbar);
         Log.d("rrrr", "ListMeetingActivity");
 
-       //  mViewAdapter.getView(binding.);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragment_container_view, MeetingFragment.class, null)
+                    .commit();
+        }
     }
 
     @OnClick(R.id.add_meeting)

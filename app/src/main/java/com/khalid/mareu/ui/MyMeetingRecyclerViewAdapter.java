@@ -45,10 +45,11 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
-        holder.mMeetingSubject.setText(meeting.getSubject());
-        Log.d(meeting.getSubject(),"okkkkkk");
-        // le reste des infos
-        // holder.mMeetingSubject.setText(meeting.getSubject());
+        //holder.mMeetingAvatar.setImageDrawable("@/drawable/ic_baseline_circle_24_green"););
+        holder.mMeetingSubject.setText(meeting.getSubject()+" - "+meeting.getTime()+ " - "+meeting.getPlace());
+        holder.mMeetingAttendees.setText((meeting.getAttendees()).toString());
+
+
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,8 +65,12 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.item_round_color_circle)
+        public ImageView mMeetingAvatar;
         @BindView(R.id.meeting_description)
         public TextView mMeetingSubject;
+        @BindView(R.id.meeting_attendees)
+        public TextView mMeetingAttendees;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 

@@ -18,12 +18,12 @@ public class Meeting {
     private String place;
 
     /** time */
-    private Date time;
+    private String time;
 
     /** attendees */
     private List<String> attendees;
 
-    public Meeting(long id, String subject, String place, Date time, List attendees) {
+    public Meeting(long id, String subject, String place, String time, List attendees) {
         this.id = id;
         this.subject = subject;
         this.place = place;
@@ -55,11 +55,11 @@ public class Meeting {
         this.place = place;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

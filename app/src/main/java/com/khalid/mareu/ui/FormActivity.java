@@ -38,7 +38,7 @@ public class FormActivity extends AppCompatActivity {
         EditText placeEditText = (EditText) findViewById(R.id.place);
         String place = placeEditText.getText().toString();
         // create a new meeting and add it to the list
-        Meeting meeting = new Meeting(12,subject, place, new Date(), Arrays.asList("maxime@lamzone.com", "alex@lamzone.com"));
+        Meeting meeting = new Meeting(12,subject, place, "13H30", Arrays.asList("maxime@lamzone.com", "alex@lamzone.com"));
 
         DI.getMeetingRepository().createMeeting(meeting);
     }
