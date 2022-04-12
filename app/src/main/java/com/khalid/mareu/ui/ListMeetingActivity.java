@@ -39,9 +39,8 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.add_meeting)
     void addMeeting() {
-
         Log.d("rrrr", "ListMeetingActivity ---  onclick");
-        FormActivity.navigate(this);
+        AddMeetingActivity.navigate(this);
     }
 
     @Override
