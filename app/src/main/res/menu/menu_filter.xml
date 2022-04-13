@@ -7,7 +7,21 @@
         android:id="@+id/filter"
         android:icon="@drawable/ic_baseline_filter_list_24"
         android:title="Filter"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom">
+    <menu>
+        <item
+            android:id="@+id/filter_on_date"
+            android:title="date" />
+
+        <item
+            android:id="@+id/filter_on_plgce"
+            android:title="place" />
+
+
+
+    </menu>
+
+    </item>
 
 
 </menu>

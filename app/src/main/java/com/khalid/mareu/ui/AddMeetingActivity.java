@@ -24,6 +24,7 @@ import com.khalid.mareu.model.Meeting;
 import com.khalid.mareu.service.MeetingApiService;
 
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,10 +55,13 @@ public class AddMeetingActivity extends AppCompatActivity {
         EditText placeEditText = (EditText) findViewById(R.id.place);
         String place = placeEditText.getText().toString();
         // create a new meeting and add it to the list
-        Meeting meeting = new Meeting(12,subject, place, "13H30", Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
+        Meeting meeting = new Meeting(12, randomNumber(), subject, place, "13H30", Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
 
         DI.getMeetingRepository().createMeeting(meeting);
         finish();
+    }
+    public int randomNumber(){
+        return ThreadLocalRandom.current().nextInt(1, 10);
     }
 
     /**

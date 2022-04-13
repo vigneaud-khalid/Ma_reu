@@ -1,6 +1,5 @@
 package com.khalid.mareu.ui;
 import android.util.Log;
-import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -10,8 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+
 import com.khalid.mareu.R;
 import com.khalid.mareu.events.DeleteMeetingEvent;
 import com.khalid.mareu.model.Meeting;
@@ -21,10 +19,9 @@ import com.khalid.mareu.ui.placeholder.PlaceholderContent.PlaceholderItem;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-// MyMeetingRecyclerViewAdapter n'est pas appelée
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
@@ -45,11 +42,9 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
-        //holder.mMeetingAvatar.setImageDrawable("@/drawable/ic_baseline_circle_24_green"););
+        holder.mMeetingAvatar.setImageDrawable(holder.mMeetingAvatar.getContext().getDrawable(getAvatar(meeting.getAvatarColor())));
         holder.mMeetingSubject.setText(meeting.getSubject()+" - "+meeting.getTime()+ " - "+meeting.getPlace());
         holder.mMeetingAttendees.setText((meeting.getAttendees()).toString());
-
-
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +72,20 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+    }
+    public int getAvatar(int num){
+        switch (num){
+            case 1: return R.drawable.ic_baseline_circle_24_green;
+            case 2: return R.drawable.ic_baseline_circle_24_pink;
+            case 3: return R.drawable.ic_baseline_circle_24_yellow;
+            case 4: return R.drawable.ic_baseline_circle_24_blue;
+            case 5: return R.drawable.ic_baseline_circle_24_lightgreen;
+            case 6: return R.drawable.ic_baseline_circle_24_red;
+            case 7: return R.drawable.ic_baseline_circle_24_pastel;
+            case 8: return R.drawable.ic_baseline_circle_24_lightgreen;
+            case 9: return R.drawable.ic_baseline_circle_24_pastel;
+            default:return R.drawable.ic_baseline_circle_24_red;
         }
     }
 }
