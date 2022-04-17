@@ -9,13 +9,13 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="243dp"
+        android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
-        android:paddingLeft="13dp"
         android:background="#58A3FF"
+        android:paddingLeft="13dp"
         android:text="@string/title"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,17 +119,15 @@
         android:id="@+id/confirm_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="596dp"
         android:backgroundTint="#0021F9"
         android:onClick="submitButtonHandler"
         android:text="Create Meeting"
+        app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cornerRadius="20dp"/>
-
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

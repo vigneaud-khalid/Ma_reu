@@ -21,11 +21,13 @@
         app:srcCompat="@drawable/ic_baseline_circle_24_green" />
 
     <LinearLayout
-        android:layout_width="341dp"
-        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="45dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/item_list_delete_button"
         app:layout_constraintStart_toEndOf="@+id/item_round_color_circle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.767">
@@ -34,20 +36,23 @@
             android:id="@+id/meeting_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="9dp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item_round_color_circle"
+
             app:layout_constraintStart_toEndOf="@+id/item_round_color_circle"
             app:layout_constraintTop_toTopOf="@+id/item_round_color_circle" />
 
         <TextView
             android:id="@+id/meeting_attendees"
-            android:layout_width="288dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginStart="14dp"
-            android:textStyle="bold"
-            android:maxLines="2"
+            android:layout_marginStart="9dp"
             android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="14sp"
+            android:textStyle="bold"
 
             app:layout_constraintBottom_toBottomOf="@+id/item_round_color_circle"
             app:layout_constraintStart_toEndOf="@+id/item_round_color_circle"
