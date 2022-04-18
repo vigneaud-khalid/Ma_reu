@@ -41,24 +41,3 @@ public class MeetingRepository {
        return service.createMeeting(meeting);
     }
 }
-
-/*public class MeetingRepository {
-
-    private final MeetingApiService meetingApiService;
-
-    public MeetingRepository(MeetingApiService meetingApiService) {
-        this.meetingApiService = meetingApiService;
-    }
-
-    public List <Meeting> getMeetings() {
-        return meetingApiService.getMeetings();
-    }
-
-    public void deleteMeeting(Meeting meeting) {
-        meetingApiService.deleteMeeting(meeting);
-    }
-
-    public Meeting createMeeting(Meeting meeting) {
-        return meetingApiService.createMeeting(meeting);
-    }
-}*/

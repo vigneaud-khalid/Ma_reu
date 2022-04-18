@@ -11,8 +11,6 @@ public class Meeting {
     /** Identifier */
     private long id;
 
-
-
     /** avatarColor */
     private int avatarColor;
 

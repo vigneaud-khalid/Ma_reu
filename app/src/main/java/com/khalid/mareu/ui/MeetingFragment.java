@@ -1,5 +1,4 @@
 package com.khalid.mareu.ui;
-import android.util.Log;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ import com.khalid.mareu.di.DI;
 import com.khalid.mareu.events.DeleteMeetingEvent;
 import com.khalid.mareu.model.Meeting;
 import com.khalid.mareu.repository.MeetingRepository;
-import com.khalid.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,10 +43,8 @@ public class MeetingFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("rrrr","MeetingFragment");
         super.onCreate(savedInstanceState);
         mRep = DI.getMeetingRepository();
-
     }
 
     @Override
@@ -60,10 +55,6 @@ public class MeetingFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        // 2 lignes ajoutées
-        mMeetings = mRep.getMeetings();
-        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
-        Log.d("rrrr","createview");
         return view;
     }
     /**

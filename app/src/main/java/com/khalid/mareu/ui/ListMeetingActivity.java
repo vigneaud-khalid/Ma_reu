@@ -1,13 +1,10 @@
 package com.khalid.mareu.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import com.bumptech.glide.request.transition.Transition;
 import com.khalid.mareu.R;
 import com.khalid.mareu.databinding.ActivityListMeetingBinding;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +17,6 @@ import butterknife.OnClick;
 public class ListMeetingActivity extends AppCompatActivity {
 
     private ActivityListMeetingBinding binding;
-    // Transition.ViewAdapter mViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +42,6 @@ public class ListMeetingActivity extends AppCompatActivity {
         });
     }
         void addMeeting() {
-        Log.d("rrrr", "ListMeetingActivity ---  onclick");
         AddMeetingActivity.navigate(this);
     }
 

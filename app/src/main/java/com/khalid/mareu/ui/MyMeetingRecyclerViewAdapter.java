@@ -1,5 +1,4 @@
 package com.khalid.mareu.ui;
-import android.util.Log;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,8 +12,6 @@ import android.widget.TextView;
 import com.khalid.mareu.R;
 import com.khalid.mareu.events.DeleteMeetingEvent;
 import com.khalid.mareu.model.Meeting;
-import com.khalid.mareu.ui.placeholder.PlaceholderContent.PlaceholderItem;
-// import com.khalid.mareu.ui.databinding.FragmentItemBinding;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,7 +30,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("rrrr","MyMeetingRecyclerViewAdapter");
+        //Log.d("rrrr","MyMeetingRecyclerViewAdapter");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_meeting, parent, false);
         return new ViewHolder(view);
@@ -44,7 +41,13 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         Meeting meeting = mMeetings.get(position);
         holder.mMeetingAvatar.setImageDrawable(holder.mMeetingAvatar.getContext().getDrawable(getAvatar(meeting.getAvatarColor())));
         holder.mMeetingSubject.setText(meeting.getSubject()+" - "+meeting.getTime()+ " - "+meeting.getPlace());
-        holder.mMeetingAttendees.setText((meeting.getAttendees()).toString());
+        List<String> attendees = meeting.getAttendees();
+        String attendeesList = new String();
+        for(String att : attendees) {
+            if(attendees.size()==attendees.indexOf(att)+1){attendeesList+=""+ att+"";}
+            else{ attendeesList+=""+ att+" , ";};
+        };
+        holder.mMeetingAttendees.setText( attendeesList);
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

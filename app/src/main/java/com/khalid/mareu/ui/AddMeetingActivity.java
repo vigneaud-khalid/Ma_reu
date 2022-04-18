@@ -21,14 +21,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.khalid.mareu.R;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.model.Meeting;
-import com.khalid.mareu.service.MeetingApiService;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -37,8 +32,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
-
-    Log.d("rrrr", "AddMeetingActivity ---  onCreate");
     }
 
     public void CheckBoxButtonHandler(View view) {
