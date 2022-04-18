@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -18,71 +21,41 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.khalid.mareu.R;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.model.Meeting;
-import com.khalid.mareu.service.MeetingApiService;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
 
-   /* @BindView(R.id.create)
-    MaterialButton addButton;
-
-    private MeetingApiService mApiService;
-    private String mMeetingImage;*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       /*  setContentView(R.layout.activity_add_meeting);
-        ButterKnife.bind(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mApiService = DI.getMeetingApiService();
-        init();*/
-    }
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home : {
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_meeting);
     }
 
-    private void init() {
-        mMeetingImage = randomImage();
-        Glide.with(this).load(mMeetingImage).placeholder(R.drawable.ic_account)
-                .apply(RequestOptions.circleCropTransform()).into(avatar);
-        nameInput.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-            @Override
-            public void afterTextChanged(Editable s) {
-                addButton.setEnabled(s.length() > 0);
-            }
-        });
+    public void CheckBoxButtonHandler(View view) {
 
+        // add the attendee checked
+        // attendees.add( COMMENT LE PASSER EN PARAM ????  )
     }
 
-    @OnClick(R.id.create)
-    void addMeeting() {
-        Meeting meeting = new Meeting(
-                System.currentTimeMillis(),
-                nameInput.getEditText().getText().toString(),
-                mMeetingImage
+    public void submitButtonHandler(View view) {
+        // récupérer l'id du  dernier meeting et l'incrémenter
 
-        );
-        mApiService.createMeeting(meeting);
+        EditText subjectEditText = (EditText) findViewById(R.id.subject);
+        String subject = subjectEditText.getText().toString();
+        EditText placeEditText = (EditText) findViewById(R.id.place);
+        String place = placeEditText.getText().toString();
+        // create a new meeting and add it to the list
+        Meeting meeting = new Meeting(12, randomNumber(), subject, place, "13H30", Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
+
+        DI.getMeetingRepository().createMeeting(meeting);
         finish();
     }
-    */
+    public int randomNumber(){
+        return ThreadLocalRandom.current().nextInt(1, 10);
+    }
 
     /**
      * Used to navigate to this activity

@@ -2,7 +2,6 @@ package com.khalid.mareu.service;
 
 import com.khalid.mareu.model.Meeting;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
  */
 public class FakeMeetingApiService implements MeetingApiService{
 
-    private List<Meeting> meetings = new ArrayList<>();
+    private List<Meeting> meetings = FakeMeetingGenerator.generateMeetings();
 
     @Override
     public List<Meeting> getMeetings() {

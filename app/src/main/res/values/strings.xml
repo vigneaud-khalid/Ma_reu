@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Ma reu</string>
+    <string name="app_name">Ma réu</string>
+    <string name="title">New Meeting Form</string>
+    <string name="subject">Subject of the meeting</string>
+    <string name="place">Place of the meeting</string>
+    <string name="date">Date of the meeting</string>
+    <string name="subject2">Subject2 of the meeting</string>
+    <string name="list_attendees">Attendees of the meeting</string>
 </resources>

@@ -11,6 +11,9 @@ public class Meeting {
     /** Identifier */
     private long id;
 
+    /** avatarColor */
+    private int avatarColor;
+
     /** subject */
     private String subject;
 
@@ -18,13 +21,14 @@ public class Meeting {
     private String place;
 
     /** time */
-    private Date time;
+    private String time;
 
     /** attendees */
     private List<String> attendees;
 
-    public Meeting(long id, String subject, String place, Date time, List attendees) {
+    public Meeting(long id, int avatarColor, String subject, String place, String time, List attendees) {
         this.id = id;
+        this.avatarColor = avatarColor;
         this.subject = subject;
         this.place = place;
         this.time = time;
@@ -38,6 +42,10 @@ public class Meeting {
     public void setId(long id) {
         this.id = id;
     }
+
+    public int getAvatarColor() { return avatarColor; }
+
+    public void setAvatarColor(int avatarColor) { this.avatarColor = avatarColor;  }
 
     public String getSubject() {
         return subject;
@@ -55,11 +63,11 @@ public class Meeting {
         this.place = place;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

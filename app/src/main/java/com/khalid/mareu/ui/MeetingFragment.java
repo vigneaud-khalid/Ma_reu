@@ -16,7 +16,7 @@ import com.khalid.mareu.R;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.events.DeleteMeetingEvent;
 import com.khalid.mareu.model.Meeting;
-import com.khalid.mareu.service.MeetingApiService;
+import com.khalid.mareu.repository.MeetingRepository;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,11 +28,9 @@ import java.util.List;
  */
 public class MeetingFragment extends Fragment {
 
-    private MeetingApiService mApiService;
+    private MeetingRepository mRep;
     private List<Meeting> mMeetings;
     private RecyclerView mRecyclerView;
-
-
 
     /**
      * Create and return a new instance
@@ -46,7 +44,7 @@ public class MeetingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApiService = DI.getMeetingApiService();
+        mRep = DI.getMeetingRepository();
     }
 
     @Override
@@ -63,7 +61,7 @@ public class MeetingFragment extends Fragment {
      * Init the List of meetings
      */
     private void initList() {
-        mMeetings = mApiService.getMeetings();
+        mMeetings = mRep.getMeetings();
         mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
     }
 
@@ -91,7 +89,7 @@ public class MeetingFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {
-        mApiService.deleteMeeting(event.meeting);
+        mRep.deleteMeeting(event.meeting);
         initList();
     }
 }
