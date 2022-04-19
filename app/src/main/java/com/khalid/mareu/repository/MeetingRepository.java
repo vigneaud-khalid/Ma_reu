@@ -33,6 +33,18 @@ public class MeetingRepository {
         return service.getMeetings();
     }
 
+    public void meetingsNoFilter(){
+        service.meetingsNoFilter();
+    }
+
+    public void meetingsPlaceFilter(String place) {
+        service.meetingsPlaceFilter(place);
+    }
+
+
+
+
+
     public void deleteMeeting(Meeting meeting) {
         service.deleteMeeting(meeting);
     }

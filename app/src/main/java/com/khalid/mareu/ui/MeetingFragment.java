@@ -45,6 +45,7 @@ public class MeetingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRep = DI.getMeetingRepository();
+        mRep.meetingsNoFilter();
     }
 
     @Override
@@ -61,6 +62,7 @@ public class MeetingFragment extends Fragment {
      * Init the List of meetings
      */
     private void initList() {
+
         mMeetings = mRep.getMeetings();
         mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
     }

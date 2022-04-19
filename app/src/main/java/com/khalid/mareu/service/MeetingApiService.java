@@ -16,6 +16,25 @@ public interface MeetingApiService {
     List<Meeting> getMeetings();
 
     /**
+     * Get Meetings with no filter
+     * @return {@link List}
+     */
+    public void meetingsNoFilter();
+
+    /**
+     * Get Meetings with filter
+     * @return {@link List}
+     */
+
+    List<Meeting> getMeetingsWithFilter(String filter);
+
+    /**
+     * Modify Meetings with Place filter
+     * @return {@link List}
+     */
+    public void meetingsPlaceFilter(String place);
+
+    /**
      * Deletes a Meeting
      * @param meeting
      */

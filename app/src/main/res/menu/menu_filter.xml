@@ -10,6 +10,9 @@
         app:showAsAction="ifRoom">
     <menu>
         <item
+            android:id="@+id/no_filter"
+            android:title="No filter" />
+        <item
             android:id="@+id/filter_on_date"
             android:title="date" />
         <item

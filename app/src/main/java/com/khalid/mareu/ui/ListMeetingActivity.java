@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.khalid.mareu.R;
 import com.khalid.mareu.databinding.ActivityListMeetingBinding;
+import com.khalid.mareu.di.DI;
+import com.khalid.mareu.repository.MeetingRepository;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +19,14 @@ import butterknife.OnClick;
 public class ListMeetingActivity extends AppCompatActivity {
 
     private ActivityListMeetingBinding binding;
+    private MeetingRepository mRep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mRep = DI.getMeetingRepository();
+
         setContentView(R.layout.activity_list_meeting);
         binding = ActivityListMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -41,7 +47,8 @@ public class ListMeetingActivity extends AppCompatActivity {
             }
         });
     }
-        void addMeeting() {
+
+    void addMeeting() {
         AddMeetingActivity.navigate(this);
     }
 
@@ -54,13 +61,48 @@ public class ListMeetingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_filter, menu);
-        return  true;
+        return true;
     }
-    @Override
-    public boolean onOptionsItemSelected( MenuItem item) {
-        if (item.getItemId()==R.id.filter_on_date) {
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // if (item.getItemId()==R.id.filter_on_date) {      }
+        switch (item.getItemId()) {
+            case R.id.no_filter:
+                noFilter();
+                return true;
+            case R.id.filter_on_date:
+                // filterOnDate();
+                return true;
+            case R.id.filter_on_place_Peach:
+                // todo;
+                filterOnPlace("Peach");
+                return true;
+            case R.id.filter_on_place_Room2:
+                // todo;
+                return true;
+            case R.id.filter_on_place_Room3:
+                // todo;
+                return true;
+
+
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
+
+    public void filterOnDate(){
+        // todo
+    }
+
+    public void noFilter(){
+        mRep.meetingsNoFilter();
+    }
+
+    public void filterOnPlace(String room){
+        mRep.meetingsPlaceFilter(room);
+
+    }
+
 }
