@@ -40,5 +40,5 @@ public interface MeetingApiService {
      * @param meeting
      * @return Meeting
      */
-    public Meeting createMeeting(Meeting meeting);
+    public Meeting createMeeting(Meeting meeting, String filterOption);
 }

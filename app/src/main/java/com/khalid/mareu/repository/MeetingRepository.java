@@ -7,12 +7,12 @@ import com.khalid.mareu.service.MeetingApiService;
 import java.util.List;
 
 /**
- * Created by ordinateur _ Khalid _  on 29/03/2022.
+ * Created by Khalid _  on 29/03/2022.
  */
 public class MeetingRepository {
 
     private static MeetingApiService service = new FakeMeetingApiService();
-
+    private String filterOption;
      /**
      * Get an instance on @{@link MeetingApiService}
      * @return
@@ -38,10 +38,12 @@ public class MeetingRepository {
     }
 
     public void meetingsPlaceFilter(String place) {
+        filterOption = place;
         service.meetingsPlaceFilter(place);
     }
 
     public void meetingsWithDateFilter(String place) {
+        filterOption = place;
         service.meetingsWithDateFilter(place);
     }
 
@@ -50,6 +52,6 @@ public class MeetingRepository {
     }
 
     public Meeting createMeeting(Meeting meeting) {
-       return service.createMeeting(meeting);
+       return service.createMeeting(meeting, filterOption);
     }
 }

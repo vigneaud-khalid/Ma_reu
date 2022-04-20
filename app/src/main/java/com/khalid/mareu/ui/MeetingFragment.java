@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,7 @@ public class MeetingFragment extends Fragment {
     /**
      * Init the List of meetings
      */
-    private void initList() {
+    public void initList() {
 
         mMeetings = mRep.getMeetings();
         mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
@@ -70,6 +71,7 @@ public class MeetingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("rrrrr", "MeetingFragment _ onResume  ");
         initList();
     }
 

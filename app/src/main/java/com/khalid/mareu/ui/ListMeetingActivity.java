@@ -23,13 +23,15 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     private ActivityListMeetingBinding binding;
     private MeetingRepository mRep;
+    private MeetingFragment mMeetingFragment = new MeetingFragment();
+    public String filter = "noFilter";
+    public String filterOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mRep = DI.getMeetingRepository();
-
         setContentView(R.layout.activity_list_meeting);
         binding = ActivityListMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -39,20 +41,24 @@ public class ListMeetingActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.fragment_container_view, MeetingFragment.class, null)
+                    .replace(R.id.fragment_container_view, mMeetingFragment)
                     .commit();
         }
         binding.addMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
-                addMeeting();
+                filter = getFilter();
+                Log.d("rrrr", "ListMeetingActivity _ onCreate() _ onClick() _ filterOption  =  "+filter);
+
+                addMeeting(filter);
             }
         });
     }
 
-    void addMeeting() {
-        AddMeetingActivity.navigate(this);
+    //void addMeeting(String filterOption) { AddMeetingActivity.navigate(this);    }
+    void addMeeting(String filterOption) {
+        AddMeetingActivity.navigate(this, filterOption);
     }
 
     @OnClick(R.id.filter)
@@ -72,25 +78,38 @@ public class ListMeetingActivity extends AppCompatActivity {
         // if (item.getItemId()==R.id.filter_on_date) {      }
         switch (item.getItemId()) {
             case R.id.no_filter:
+                filterOption = "noFilter";
+                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption =  "+filterOption);
+
                 noFilter();
                 return true;
             case R.id.filter_on_date:
                 // filterOnDate();
                 return true;
             case R.id.filter_on_place_Peach:
-                // todo;
+                filterOption = "Peach";
+                setFilter(filterOption);
+                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption(Peach)  =  "+filterOption);
+
                 filterOnPlace("Peach");
                 return true;
             case R.id.filter_on_place_Room2:
+
                 filterOnPlace("Room 2");
                 return true;
             case R.id.filter_on_place_Room3:
+
                 filterOnPlace("Room 3");
                 return true;
             case R.id.filter_on_place_Kiwi:
+                filterOption = "Kiwi";
+                setFilter(filterOption);
+                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption(Kiwi)  =  "+filterOption);
+
                 filterOnPlace("Kiwi");
                 return true;
             case R.id.filter_on_place_Berry:
+
                 filterOnPlace("Berry");
                 return true;
             case R.id.filter_on_place_Cherry:
@@ -113,6 +132,16 @@ public class ListMeetingActivity extends AppCompatActivity {
         }
     }
 
+    //public String getFilter(){ Log.d("rrrr", "ListMeetingActivity _ getFilterOption()  =  "+filterOption);return filterOption ;}
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filterOption) {
+        this.filter = filterOption;
+    }
+
     public void filterOnDate(){
         // todo
     }
@@ -124,9 +153,11 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
     public void filterOnPlace(String room){
-        mRep.meetingsPlaceFilter(room);
+        Log.d("rrrr", "ListMeetingActivity _ filterOnPlace _ filterOption(Peach)  =  "+filterOption);
 
-        ListMeetingActivity.navigate(this);
+        mRep.meetingsPlaceFilter(room);
+        mMeetingFragment.initList();
+        //ListMeetingActivity.navigate(this);
 
     }
 

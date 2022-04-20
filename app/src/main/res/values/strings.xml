@@ -6,4 +6,14 @@
     <string name="date">Date of the meeting</string>
     <string name="subject2">Subject2 of the meeting</string>
     <string name="list_attendees">Attendees of the meeting</string>
+    <string-array name="attendees_array">
+        <item>ali@lamzone.com</item>
+        <item>alex@lamzone.com</item>
+        <item>ana@lamzone.com</item>
+        <item>dav@lamzone.com</item>
+        <item>ed@sst.com"</item>
+        <item>igor@lamzone.com</item>
+        <item>lyn@lamzone.com</item>
+        <item>rachid@uvt.com</item>
+    </string-array>
 </resources>

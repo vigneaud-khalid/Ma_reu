@@ -62,6 +62,21 @@
         app:layout_constraintVertical_bias="0.373" />
 
 
+    <AutoCompleteTextView
+        android:id="@+id/autocomplete_attendees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="152dp"
+        android:completionThreshold="1"
+        android:completionHintView="@array/attendees_array"
+        android:ems="10"
+        android:hint="@string/list_attendees"
+        android:inputType="textAutoComplete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483" />
+
     <TextView
         android:id="@+id/list_attendees"
         android:layout_width="wrap_content"
@@ -72,34 +87,22 @@
         android:text="@string/list_attendees"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.69" />
 
     <CheckBox
         android:id="@+id/chk1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginBottom="152dp"
         android:checked="true"
-        android:text="Peter" android:onClick="CheckBoxButtonHandler"
+        android:onClick="CheckBoxButtonHandler"
+        android:text="Peter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551" />
-
-    <CheckBox
-        android:id="@+id/chk2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:checked="true"
-        android:text="Pedro" android:onClick="CheckBoxButtonHandler"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/chk3"
@@ -107,13 +110,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:checked="true"
-        android:text="Pietro"
         android:onClick="CheckBoxButtonHandler"
+        android:text="Pietro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.723" />
-
+        app:layout_constraintVertical_bias="0.777" />
 
     <Button
         android:id="@+id/confirm_add_button"
