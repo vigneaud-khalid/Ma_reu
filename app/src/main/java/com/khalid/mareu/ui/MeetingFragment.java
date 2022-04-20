@@ -45,7 +45,7 @@ public class MeetingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRep = DI.getMeetingRepository();
-        mRep.meetingsNoFilter();
+        // mRep.meetingsNoFilter();
     }
 
     @Override

@@ -44,17 +44,21 @@ public class AddMeetingActivity extends AppCompatActivity {
         // récupérer l'id du  dernier meeting et l'incrémenter
 
         EditText subjectEditText = (EditText) findViewById(R.id.subject);
-        String subject = subjectEditText.getText().toString();
+        String subject = "Today Meeting";
+        subjectEditText.getText().toString();
         EditText placeEditText = (EditText) findViewById(R.id.place);
         String place = placeEditText.getText().toString();
         // create a new meeting and add it to the list
+        place = "Peach";
         Meeting meeting = new Meeting(12, randomNumber(), subject, place, "13H30", Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
+        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ place =  "+place);
 
         DI.getMeetingRepository().createMeeting(meeting);
-        finish();
+        //finish();
+        ListMeetingActivity.navigate(this);
     }
     public int randomNumber(){
-        return ThreadLocalRandom.current().nextInt(1, 10);
+        return ThreadLocalRandom.current().nextInt(1, 13);
     }
 
     /**

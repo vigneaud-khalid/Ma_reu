@@ -41,9 +41,9 @@ public class MeetingRepository {
         service.meetingsPlaceFilter(place);
     }
 
-
-
-
+    public void meetingsWithDateFilter(String place) {
+        service.meetingsWithDateFilter(place);
+    }
 
     public void deleteMeeting(Meeting meeting) {
         service.deleteMeeting(meeting);

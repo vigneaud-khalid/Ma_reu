@@ -80,14 +80,17 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public int getAvatar(int num){
         switch (num){
             case 1: return R.drawable.ic_baseline_circle_24_green;
-            case 2: return R.drawable.ic_baseline_circle_24_pink;
-            case 3: return R.drawable.ic_baseline_circle_24_yellow;
-            case 4: return R.drawable.ic_baseline_circle_24_blue;
-            case 5: return R.drawable.ic_baseline_circle_24_lightgreen;
-            case 6: return R.drawable.ic_baseline_circle_24_red;
-            case 7: return R.drawable.ic_baseline_circle_24_pastel;
-            case 8: return R.drawable.ic_baseline_circle_24_lightgreen;
-            case 9: return R.drawable.ic_baseline_circle_24_pastel;
+            case 2: return R.drawable.ic_baseline_circle_24_black;
+            case 3: return R.drawable.ic_baseline_circle_24_pink;
+            case 4: return R.drawable.ic_baseline_circle_24_yellow;
+            case 5: return R.drawable.ic_baseline_circle_24_blue;
+            case 6: return R.drawable.ic_baseline_circle_24_lightgreen;
+            case 7: return R.drawable.ic_baseline_circle_24_red;
+            case 8: return R.drawable.ic_baseline_circle_24_pastel;
+            case 9: return R.drawable.ic_baseline_circle_24_orange;
+            case 10: return R.drawable.ic_baseline_circle_24_pastel;
+            case 11: return R.drawable.ic_baseline_circle_24_lightgreen;
+            case 12: return R.drawable.ic_baseline_circle_24_orange;
             default:return R.drawable.ic_baseline_circle_24_red;
         }
     }

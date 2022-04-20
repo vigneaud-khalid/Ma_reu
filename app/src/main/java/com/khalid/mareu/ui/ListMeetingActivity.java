@@ -1,12 +1,15 @@
 package com.khalid.mareu.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.khalid.mareu.R;
 import com.khalid.mareu.databinding.ActivityListMeetingBinding;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.repository.MeetingRepository;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -79,15 +82,33 @@ public class ListMeetingActivity extends AppCompatActivity {
                 filterOnPlace("Peach");
                 return true;
             case R.id.filter_on_place_Room2:
-                // todo;
+                filterOnPlace("Room 2");
                 return true;
             case R.id.filter_on_place_Room3:
-                // todo;
+                filterOnPlace("Room 3");
                 return true;
-
-
-
-            default:
+            case R.id.filter_on_place_Kiwi:
+                filterOnPlace("Kiwi");
+                return true;
+            case R.id.filter_on_place_Berry:
+                filterOnPlace("Berry");
+                return true;
+            case R.id.filter_on_place_Cherry:
+                filterOnPlace("Cherry");
+                return true;
+            case R.id.filter_on_place_Room7:
+                filterOnPlace("Room 7");
+                return true;
+            case R.id.filter_on_place_Room8:
+                filterOnPlace("Room 8");
+                return true;
+            case R.id.filter_on_place_Grape:
+                filterOnPlace("Grape");
+                return true;
+            case R.id.filter_on_place_Room10:
+                filterOnPlace("Room 10");
+                return true;
+           default:
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -98,11 +119,19 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     public void noFilter(){
         mRep.meetingsNoFilter();
+        ListMeetingActivity.navigate(this);
+
     }
 
     public void filterOnPlace(String room){
         mRep.meetingsPlaceFilter(room);
 
+        ListMeetingActivity.navigate(this);
+
     }
 
+    public static void navigate(FragmentActivity activity) {
+        Intent intent = new Intent(activity, ListMeetingActivity.class);
+        ActivityCompat.startActivity(activity, intent, null);
+    }
 }

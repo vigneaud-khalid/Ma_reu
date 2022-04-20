@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by ordinateur _ Khalid _  on 29/03/2022.
+ * Created by Khalid _  on 29/03/2022.
  */
 public abstract class FakeMeetingGenerator {
 
@@ -23,11 +23,12 @@ public abstract class FakeMeetingGenerator {
 
             new Meeting(1, 1,"Réunion A", "Peach", "15H30", Arrays.asList("herve@lamzone.com", "rachid@uvt.com") ),
             new Meeting(2, 2,"Réunion B", "Room 2", "13H00", Arrays.asList("ed@sst.com", "paul@lamzone.com", "ali@lamzone.com")),
-            // new Meeting(3, "Réunion B2", "Pitt", null, null ),
+            // new Meeting(3, 3, "Réunion B2", "Pitt", null, null ),
             new Meeting(3,3,"Réunion C","Room 3", "08H30", Arrays.asList("ana@lamzone.com", "ed@sst.com","alex@lamzone.com","khalid@gmail.com","ali@lamzone.com")),
-            new Meeting(4, 4,"Réunion D","Room 4", "11H00", Arrays.asList("igor@lamzone.com", "ali@lamzone.com")),
-            new Meeting(5, 1,"Réunion E", "Peach", "17H30", Arrays.asList("paul@lamzone.com", "herve@lamzone.com", "rachid@uvt.com") )
-            // new Meeting(5,"Réunion E","Room 5", date, Arrays.asList("Hello", "World!", "How", "Are", "You"))
+            new Meeting(4, 4,"Réunion D","Kiwi", "11H00", Arrays.asList("igor@lamzone.com", "ali@lamzone.com")),
+            new Meeting(5, 5,"Réunion E", "Peach", "17H30", Arrays.asList("paul@lamzone.com", "dav@lamzone.com", "rachid@uvt.com")),
+            new Meeting(6, 6,"Project Star", "Room 2", "10H30", Arrays.asList("lyn@lamzone.com", "ed@sst.com","alex@lamzone.com", "dav@lamzone.com", "rachid@uvt.com"))
+            // new Meeting(6,"Réunion F","Room 5", date, Arrays.asList("Hello", "aaaa", "fow", "ghi", "lop"))
         );
     // "dd-MM-yyyy"
     static List<Meeting> generateMeetings() {

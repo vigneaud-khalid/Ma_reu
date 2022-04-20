@@ -1,11 +1,10 @@
 package com.khalid.mareu.service;
 
 import com.khalid.mareu.model.Meeting;
-
 import java.util.List;
 
 /**
- * Created by ordinateur _ Khalid _  on 29/03/2022.
+ * Created by Khalid _  on 29/03/2022.
  */
 public interface MeetingApiService {
 
@@ -16,34 +15,30 @@ public interface MeetingApiService {
     List<Meeting> getMeetings();
 
     /**
-     * Get Meetings with no filter
-     * @return {@link List}
+     * Modify meeting list with no filter
      */
     public void meetingsNoFilter();
 
     /**
-     * Get Meetings with filter
-     * @return {@link List}
+     * Modify meeting list with date filter
      */
-
-    List<Meeting> getMeetingsWithFilter(String filter);
+    public void meetingsWithDateFilter(String filter);
 
     /**
-     * Modify Meetings with Place filter
-     * @return {@link List}
+     * Modify meeting list with place filter
      */
     public void meetingsPlaceFilter(String place);
 
     /**
-     * Deletes a Meeting
+     * Deletes a meeting
      * @param meeting
      */
-    void deleteMeeting(Meeting meeting);
+    public void deleteMeeting(Meeting meeting);
 
     /**
      * Create a meeting
      * @param meeting
-     * @return
+     * @return Meeting
      */
-    Meeting createMeeting(Meeting meeting);
+    public Meeting createMeeting(Meeting meeting);
 }
