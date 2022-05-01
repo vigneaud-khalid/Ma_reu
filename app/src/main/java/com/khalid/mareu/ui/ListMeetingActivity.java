@@ -56,9 +56,8 @@ public class ListMeetingActivity extends AppCompatActivity {
         });
     }
 
-    //void addMeeting(String filterOption) { AddMeetingActivity.navigate(this);    }
     void addMeeting(String filterOption) {
-        AddMeetingActivity.navigate(this, filterOption);
+        AddMeetingActivity.navigate(this);
     }
 
     @OnClick(R.id.filter)
