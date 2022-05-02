@@ -16,4 +16,16 @@
         <item>lyn@lamzone.com</item>
         <item>rachid@uvt.com</item>
     </string-array>
+    <string-array name="places_array">
+        <item>Peach</item>
+        <item>Room2</item>
+        <item>Room3</item>
+        <item>Kiwi</item>
+        <item>Berry</item>
+        <item>Cherry</item>
+        <item>Room7</item>
+        <item>Room8</item>
+        <item>Grape</item>
+        <item>Room10</item>
+    </string-array>
 </resources>

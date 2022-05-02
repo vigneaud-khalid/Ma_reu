@@ -15,6 +15,9 @@ import com.khalid.mareu.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +43,11 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
         holder.mMeetingAvatar.setImageDrawable(holder.mMeetingAvatar.getContext().getDrawable(getAvatar(meeting.getAvatarColor())));
-        holder.mMeetingSubject.setText(meeting.getSubject()+" - "+meeting.getTime()+ " - "+meeting.getPlace());
+        String pattern = "MMMdd hh:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+
+            holder.mMeetingSubject.setText(meeting.getSubject()+" - "+dateFormat.format(meeting.getDate())+ " - "+meeting.getPlace());
+
         List<String> attendees = meeting.getAttendees();
         String attendeesList = new String();
         for(String att : attendees) {
