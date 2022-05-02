@@ -29,6 +29,8 @@ import com.khalid.mareu.R;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.model.Meeting;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +54,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
         EditText editTextDate = findViewById(R.id.date);
+        Date dateMeeting = new Date(0, 0, 1, 0, 0);
 
         MultiAutoCompleteTextView place = (MultiAutoCompleteTextView) findViewById(R.id.autocomplete_place);
         String[] places = getResources().getStringArray(R.array.places_array);
@@ -72,6 +75,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                                   int monthOfYear, int dayOfMonth) {
                 EditText editTextDate = findViewById(R.id.date);
                 editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
             }
         };
         // Create DatePickerDialog (Spinner Mode):
@@ -105,7 +109,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    public void submitButtonHandler(View view) {
+    public void submitButtonHandler(View view) throws ParseException {
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ before interfering with the id");
         // récupérer l'id du  dernier meeting et l'incrémenter
 //        int numberMeetings = DI.getMeetingRepository().getMeetings().size();
@@ -129,8 +133,23 @@ public class AddMeetingActivity extends AppCompatActivity {
             return;
         }
 
+        EditText editTextDate = (EditText) findViewById(R.id.date);
 
+        //Date dateRetrieved = (Date)(placeEditText.getText());
+        String dateRetrieved = placeEditText.getText().toString();
+        String pattern1 = "MMMdd hh:mm";
+        Date date = new SimpleDateFormat(pattern1).parse(dateRetrieved);
 
+        //formatting the date
+        // String pattern = "MMMdd hh:mm";
+        // SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        // Date date = dateFormat.format(dateRetrieved);
+
+        // control of the field
+        if (date == null) {
+            editTextDate.setError("YOU HAVE TO DEFINE THE TIME !!!");
+            return;
+        }
 
 
         EditText attendeesEditText = (EditText) findViewById(R.id.autocomplete_attendees);
@@ -143,8 +162,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
 
         // create a new meeting and add it to the list
-        if (subject != "" && place != "") {
-            Meeting meeting = new Meeting(12, randomNumber(), subject, place, new Date(), Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
+        if (subject != "" && place != "" && date != null && !attendees.isEmpty()) {
+            //Meeting meeting = new Meeting(12, randomNumber(), subject, place, new Date(), Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
+            Meeting meeting = new Meeting(12, randomNumber(), subject, place, date, attendees);
             Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ place =  " + place);
             DI.getMeetingRepository().createMeeting(meeting);
             ListMeetingActivity.navigate(this);
