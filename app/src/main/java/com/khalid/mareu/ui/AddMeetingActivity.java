@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.bumptech.glide.Glide;
@@ -53,7 +54,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         textView.setAdapter(adapter);
         textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
-        EditText editTextDate = findViewById(R.id.date);
+        TextView textDate = findViewById(R.id.date);
         Date dateMeeting = new Date(0, 0, 1, 0, 0);
 
         MultiAutoCompleteTextView place = (MultiAutoCompleteTextView) findViewById(R.id.autocomplete_place);
@@ -73,8 +74,12 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year,
                                   int monthOfYear, int dayOfMonth) {
-                EditText editTextDate = findViewById(R.id.date);
-                editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                TextView textDate = findViewById(R.id.date);
+                String day = ""+dayOfMonth;
+                if ( dayOfMonth<10) {   day = "0" + day;   }
+                String month = ""+monthOfYear;
+                if ( monthOfYear<10) {   month = "0" + month;   }
+                textDate.setText(day + "-" + (month + 1) + "-" + year);
 
             }
         };
@@ -96,8 +101,12 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                EditText editTextDate = findViewById(R.id.date);
-                editTextDate.append(" "+hourOfDay + ":" + minute );
+                TextView textDate = findViewById(R.id.date);
+                String hour = ""+hourOfDay;
+                if ( hourOfDay>0 && hourOfDay<10) {   hour = "0" + hour;   }
+                String min = ""+minute;
+                if ( minute<10) {   min = "0" + min;   }
+                textDate.append(" "+hour + ":" + min );
                 //lastSelectedHour = hourOfDay;
                 //lastSelectedMinute = minute;
             }
@@ -112,11 +121,14 @@ public class AddMeetingActivity extends AppCompatActivity {
     public void submitButtonHandler(View view) throws ParseException {
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ before interfering with the id");
         // récupérer l'id du  dernier meeting et l'incrémenter
-//        int numberMeetings = DI.getMeetingRepository().getMeetings().size();
-//        long lastId = DI.getMeetingRepository().getMeetings().get(numberMeetings).getId();
-//        long id = lastId++;
-//        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ lastId =  "+lastId);
-//        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ id =  "+id);
+        int numberMeetings = DI.getMeetingRepository().getMeetings().size();
+        long firstId = DI.getMeetingRepository().getMeetings().get(0).getId();
+        long lastId = DI.getMeetingRepository().getMeetings().get(numberMeetings-1).getId();
+        long id = lastId++;
+        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ numberMeetings =  "+numberMeetings);
+        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ firstId =  "+firstId);
+        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ lastId =  "+lastId);
+        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ id =  "+id);
 
         EditText subjectEditText = (EditText) findViewById(R.id.subject);
         String subject = subjectEditText.getText().toString();
@@ -133,27 +145,20 @@ public class AddMeetingActivity extends AppCompatActivity {
             return;
         }
 
-        EditText editTextDate = (EditText) findViewById(R.id.date);
-
-        //Date dateRetrieved = (Date)(placeEditText.getText());
-        String dateRetrieved = placeEditText.getText().toString();
-        String pattern1 = "MMMdd hh:mm";
-        Date date = new SimpleDateFormat(pattern1).parse(dateRetrieved);
-
-        //formatting the date
-        // String pattern = "MMMdd hh:mm";
-        // SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-        // Date date = dateFormat.format(dateRetrieved);
+        TextView textDate = (TextView) findViewById(R.id.date);
+        String dateRetrieved = textDate.getText().toString();
+        String pattern = "dd-MM-yyyy hh:mm";
+        Date date = new SimpleDateFormat(pattern).parse(dateRetrieved);
 
         // control of the field
-        if (date == null) {
-            editTextDate.setError("YOU HAVE TO DEFINE THE TIME !!!");
+        if (date == null || date.toString()=="") {
+            textDate.setError("YOU HAVE TO DEFINE THE TIME !!!");
             return;
         }
 
 
         EditText attendeesEditText = (EditText) findViewById(R.id.autocomplete_attendees);
-        List<String> attendees = (List<String>) attendeesEditText.getEditableText();
+        List<String> attendees = (List<String>) Arrays.asList(attendeesEditText.getEditableText().toString().split(" "));
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ attendees =  " + attendees);
         // control of the field
         if (attendees.isEmpty()) {
@@ -162,8 +167,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
 
         // create a new meeting and add it to the list
+        //Meeting meeting = new Meeting(12, randomNumber(), subject, place, new Date(), Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
         if (subject != "" && place != "" && date != null && !attendees.isEmpty()) {
-            //Meeting meeting = new Meeting(12, randomNumber(), subject, place, new Date(), Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
             Meeting meeting = new Meeting(12, randomNumber(), subject, place, date, attendees);
             Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ place =  " + place);
             DI.getMeetingRepository().createMeeting(meeting);
