@@ -42,9 +42,9 @@ public class MeetingRepository {
         service.meetingsPlaceFilter(place);
     }
 
-    public void meetingsWithDateFilter(String place) {
-        filterOption = place;
-        service.meetingsWithDateFilter(place);
+    public void meetingsDateFilter(String date) {
+        filterOption = date;
+        service.meetingsDateFilter(date);
     }
 
     public void deleteMeeting(Meeting meeting) {

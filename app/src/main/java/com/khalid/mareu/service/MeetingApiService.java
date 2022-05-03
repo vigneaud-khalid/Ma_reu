@@ -22,7 +22,7 @@ public interface MeetingApiService {
     /**
      * Modify meeting list with date filter
      */
-    public void meetingsWithDateFilter(String filter);
+    public void meetingsDateFilter(String date);
 
     /**
      * Modify meeting list with place filter

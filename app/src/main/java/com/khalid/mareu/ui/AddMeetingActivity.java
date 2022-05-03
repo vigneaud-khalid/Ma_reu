@@ -96,7 +96,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
                 EditText editTextDate = findViewById(R.id.date);
                 editTextDate.append(" "+hourOfDay + ":" + minute );
                 //lastSelectedHour = hourOfDay;
@@ -105,6 +104,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         };
         // Create TimePickerDialog:
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 timeSetListener, lastSelectedHour, lastSelectedMinute, is24HView);
         timePickerDialog.show();
     }

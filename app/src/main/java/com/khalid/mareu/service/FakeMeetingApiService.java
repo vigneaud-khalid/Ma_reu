@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.khalid.mareu.model.Meeting;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +30,23 @@ public class FakeMeetingApiService implements MeetingApiService{
     }
 
     @Override
-    public void meetingsWithDateFilter(String filter) {
-        // todo
+    public void meetingsDateFilter(String date) {
+        List<Meeting> meetingsDateFilter = new ArrayList<>();
+        Format f = new SimpleDateFormat("MMMdd hh:mm");
+        String meetingDate;
+        for (Meeting meeting: allMeetings) {
+            meetingDate = f.format(meeting.getDate());
+            if(meetingDate.equals(date)){
+            meetingsDateFilter.add(meeting);
+            }
+        }
+        filterdMeetings = meetingsDateFilter;
+        Log.d("rrrr", " meetingsDateFilter");
+        Log.d("rrrr", " meetingsDateFilter :  " + meetingsDateFilter.toString());
+        Log.d("rrrr", " meetingsDateFilter :  " + filterdMeetings.toString());
+        Log.d("rrrr", " meetingsDateFilter... :  " + filterdMeetings);
     }
+
 
     @Override
     public void meetingsPlaceFilter(String place) {
@@ -47,6 +63,7 @@ public class FakeMeetingApiService implements MeetingApiService{
 
     @Override
     public void deleteMeeting(Meeting meeting) {
+        Log.d("rrrrr", "FakeMeetingApiService _ deleteMeeting() _ meeting.getDate().toString()  "+ meeting.getDate().toString());
         allMeetings.remove(meeting);
         filterdMeetings.remove(meeting);
     }

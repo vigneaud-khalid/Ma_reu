@@ -14,7 +14,7 @@
             android:title="No filter" />
         <item
             android:id="@+id/filter_on_date"
-            android:title="date" />
+            android:title="date: comment la définir" />
         <item
             android:id="@+id/filter_on_place_Peach"
             android:title="place: Peach" />

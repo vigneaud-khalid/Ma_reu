@@ -9,12 +9,17 @@ import com.khalid.mareu.databinding.ActivityListMeetingBinding;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.repository.MeetingRepository;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
 import butterknife.OnClick;
 
@@ -26,6 +31,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     private MeetingFragment mMeetingFragment = new MeetingFragment();
     public String filter = "noFilter";
     public String filterOption;
+    public String dateFilter = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,55 @@ public class ListMeetingActivity extends AppCompatActivity {
         });
     }
 
+    public void chooseDate(){
+        int selectedYear = 2022;
+        int selectedMonth = 5;
+        int selectedDayOfMonth = 02;
+        // Date Select Listener.
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year,
+                                  int monthOfYear, int dayOfMonth) {
+                EditText editTextDate = findViewById(R.id.date);
+                editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                dateFilter = monthOfYear+dayOfMonth+" ";
+                // chooseTime();
+
+            }
+        };
+        // Create DatePickerDialog (Spinner Mode):
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
+        datePickerDialog.show();
+    }
+
+    public void chooseTime(){
+        boolean is24HView = true;
+        int selectedHour = 10;
+        int selectedMinute = 20;
+        int lastSelectedHour =  0;
+        int lastSelectedMinute = 0;
+
+        // Time Set Listener.
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                EditText editTextDate = findViewById(R.id.date);
+                editTextDate.append(" "+hourOfDay + ":" + minute );
+                //lastSelectedHour = hourOfDay;
+                //lastSelectedMinute = minute;
+                dateFilter += hourOfDay + ":" + minute;
+            }
+        };
+        // Create TimePickerDialog:
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                timeSetListener, lastSelectedHour, lastSelectedMinute, is24HView);
+        timePickerDialog.show();
+    }
+
+
     void addMeeting(String filterOption) {
         AddMeetingActivity.navigate(this);
     }
@@ -79,11 +134,14 @@ public class ListMeetingActivity extends AppCompatActivity {
             case R.id.no_filter:
                 filterOption = "noFilter";
                 Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption =  "+filterOption);
-
                 noFilter();
                 return true;
             case R.id.filter_on_date:
-                // filterOnDate();
+                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filter_on_date_ dateFilter =  "+dateFilter);
+
+                chooseDate();
+                chooseTime();
+                filterOnDate(dateFilter);
                 return true;
             case R.id.filter_on_place_Peach:
                 filterOption = "Peach";
@@ -141,8 +199,11 @@ public class ListMeetingActivity extends AppCompatActivity {
         this.filter = filterOption;
     }
 
-    public void filterOnDate(){
-        // todo
+    public void filterOnDate(String date){
+        // comment récupérer une String date
+        //String date = "Jul06 10:30";
+        mRep.meetingsDateFilter(date);
+        mMeetingFragment.initList();
     }
 
     public void noFilter(){
@@ -157,8 +218,9 @@ public class ListMeetingActivity extends AppCompatActivity {
         mRep.meetingsPlaceFilter(room);
         mMeetingFragment.initList();
         //ListMeetingActivity.navigate(this);
-
     }
+
+
 
     public static void navigate(FragmentActivity activity) {
         Intent intent = new Intent(activity, ListMeetingActivity.class);
