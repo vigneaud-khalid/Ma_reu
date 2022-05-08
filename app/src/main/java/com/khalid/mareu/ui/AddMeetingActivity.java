@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.WorkSource;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -38,6 +40,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AddMeetingActivity extends AppCompatActivity {
+
+    static int lastSelectedHour =  9;
+    static int lastSelectedMinute = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +82,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                 TextView textDate = findViewById(R.id.date);
                 String day = ""+dayOfMonth;
                 if ( dayOfMonth<10) {   day = "0" + day;   }
-                String month = ""+monthOfYear;
+                String month = ""+(++monthOfYear);
                 if ( monthOfYear<10) {   month = "0" + month;   }
-                textDate.setText(day + "-" + (month + 1) + "-" + year);
-
+                textDate.setText(day + "-" + (month) + "-" + year);
             }
         };
         // Create DatePickerDialog (Spinner Mode):
@@ -93,8 +97,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         boolean is24HView = true;
         int selectedHour = 10;
         int selectedMinute = 20;
-        int lastSelectedHour =  0;
-        int lastSelectedMinute = 0;
 
         // Time Set Listener.
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -103,12 +105,12 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 TextView textDate = findViewById(R.id.date);
                 String hour = ""+hourOfDay;
-                if ( hourOfDay>0 && hourOfDay<10) {   hour = "0" + hour;   }
+                if ( hourOfDay>=0 && hourOfDay<10) {   hour = "0" + hour;   }
                 String min = ""+minute;
                 if ( minute<10) {   min = "0" + min;   }
-                textDate.append(" "+hour + ":" + min );
-                //lastSelectedHour = hourOfDay;
-                //lastSelectedMinute = minute;
+                textDate.append("  "+hour + ":" + min );
+                lastSelectedHour = hourOfDay;
+                lastSelectedMinute = minute;
             }
         };
         // Create TimePickerDialog:
@@ -124,7 +126,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         int numberMeetings = DI.getMeetingRepository().getMeetings().size();
         long firstId = DI.getMeetingRepository().getMeetings().get(0).getId();
         long lastId = DI.getMeetingRepository().getMeetings().get(numberMeetings-1).getId();
-        long id = lastId++;
+        long id = lastId +1;
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ numberMeetings =  "+numberMeetings);
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ firstId =  "+firstId);
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ lastId =  "+lastId);
@@ -147,29 +149,33 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         TextView textDate = (TextView) findViewById(R.id.date);
         String dateRetrieved = textDate.getText().toString();
+        Toast.makeText(this, dateRetrieved, Toast.LENGTH_LONG);
+        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ dateRetrieved =  " + dateRetrieved);
+        // control of the field
+        //DO NOT WORK
+        if (dateRetrieved == "") {
+            Toast.makeText(this,"YOU HAVE TO DEFINE THE TIME !!!", Toast.LENGTH_LONG);
+            return;
+        }
         String pattern = "dd-MM-yyyy hh:mm";
         Date date = new SimpleDateFormat(pattern).parse(dateRetrieved);
 
-        // control of the field
-        if (date == null || date.toString()=="") {
-            textDate.setError("YOU HAVE TO DEFINE THE TIME !!!");
-            return;
-        }
-
+        String message = date.toString();
+        Toast.makeText(this,message, Toast.LENGTH_LONG);
 
         EditText attendeesEditText = (EditText) findViewById(R.id.autocomplete_attendees);
         List<String> attendees = (List<String>) Arrays.asList(attendeesEditText.getEditableText().toString().split(" "));
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ attendees =  " + attendees);
         // control of the field
+        //DO NOT WORK
         if (attendees.isEmpty()) {
             attendeesEditText.setError("YOU HAVE TO NAME AT LEAST ONE ATTENDEE !!!");
             return;
         }
 
         // create a new meeting and add it to the list
-        //Meeting meeting = new Meeting(12, randomNumber(), subject, place, new Date(), Arrays.asList("AAAA@lamzone.com", "it@ufo.com"));
         if (subject != "" && place != "" && date != null && !attendees.isEmpty()) {
-            Meeting meeting = new Meeting(12, randomNumber(), subject, place, date, attendees);
+            Meeting meeting = new Meeting(id, randomNumber(), subject, place, date, attendees);
             Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ place =  " + place);
             DI.getMeetingRepository().createMeeting(meeting);
             ListMeetingActivity.navigate(this);

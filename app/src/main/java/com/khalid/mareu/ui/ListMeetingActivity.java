@@ -31,6 +31,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     private MeetingFragment mMeetingFragment = new MeetingFragment();
     public String filter = "noFilter";
     public String filterOption;
+
     public String dateFilter = "";
 
     @Override
@@ -65,16 +66,20 @@ public class ListMeetingActivity extends AppCompatActivity {
     public void chooseDate(){
         int selectedYear = 2022;
         int selectedMonth = 5;
-        int selectedDayOfMonth = 02;
+        int selectedDayOfMonth = 12;
         // Date Select Listener.
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year,
                                   int monthOfYear, int dayOfMonth) {
-                EditText editTextDate = findViewById(R.id.date);
-                editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                dateFilter = monthOfYear+dayOfMonth+" ";
-                // chooseTime();
+//                EditText editTextDate = findViewById(R.id.date);
+//                editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                dateFilter = ""+(monthOfYear + 1)+dayOfMonth;
+                Log.d("rrrr", "ListMeetingActivity _ chooseDate()_ dateFilter =  "+dateFilter);
+                setDateFilter(dateFilter);
+                Log.d("rrrr", "ListMeetingActivity _ chooseDate()  dateFilter AFTER SET=  "+dateFilter);
+                //chooseTime();
+                filterOnDate(dateFilter);
 
             }
         };
@@ -96,8 +101,8 @@ public class ListMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                EditText editTextDate = findViewById(R.id.date);
-                editTextDate.append(" "+hourOfDay + ":" + minute );
+//                EditText editTextDate = findViewById(R.id.date);
+//                editTextDate.append(" "+hourOfDay + ":" + minute );
                 //lastSelectedHour = hourOfDay;
                 //lastSelectedMinute = minute;
                 dateFilter += hourOfDay + ":" + minute;
@@ -136,12 +141,11 @@ public class ListMeetingActivity extends AppCompatActivity {
                 Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption =  "+filterOption);
                 noFilter();
                 return true;
-            case R.id.filter_on_date:
-                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filter_on_date_ dateFilter =  "+dateFilter);
 
+            case R.id.filter_on_date:
                 chooseDate();
-                chooseTime();
-                filterOnDate(dateFilter);
+                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filter_on_date_ dateFilter =  "+dateFilter);
+                //filterOnDate(dateFilter);
                 return true;
             case R.id.filter_on_place_Peach:
                 filterOption = "Peach";
@@ -151,7 +155,6 @@ public class ListMeetingActivity extends AppCompatActivity {
                 filterOnPlace("Peach");
                 return true;
             case R.id.filter_on_place_Room2:
-
                 filterOnPlace("Room 2");
                 return true;
             case R.id.filter_on_place_Room3:
@@ -162,11 +165,9 @@ public class ListMeetingActivity extends AppCompatActivity {
                 filterOption = "Kiwi";
                 setFilter(filterOption);
                 Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption(Kiwi)  =  "+filterOption);
-
                 filterOnPlace("Kiwi");
                 return true;
             case R.id.filter_on_place_Berry:
-
                 filterOnPlace("Berry");
                 return true;
             case R.id.filter_on_place_Cherry:
@@ -200,8 +201,9 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
     public void filterOnDate(String date){
-        // comment récupérer une String date
-        //String date = "Jul06 10:30";
+        //date = "Jul06 10:30";
+        Log.d("rrrr", " ListMeetingActivity _ filterOnDate()... :  date = " + date);
+
         mRep.meetingsDateFilter(date);
         mMeetingFragment.initList();
     }
@@ -220,6 +222,9 @@ public class ListMeetingActivity extends AppCompatActivity {
         //ListMeetingActivity.navigate(this);
     }
 
+    public void setDateFilter(String dateFilter) {
+        this.dateFilter = dateFilter;
+    }
 
 
     public static void navigate(FragmentActivity activity) {

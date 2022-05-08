@@ -16,35 +16,39 @@ public class FakeMeetingApiService implements MeetingApiService{
 
     // private List<Meeting> meetings = new ArrayList<>();
     private List<Meeting> allMeetings = FakeMeetingGenerator.generateMeetings();
-    private List<Meeting> filterdMeetings = allMeetings;
+    private List<Meeting> filteredMeetings = allMeetings;
     @Override
     public List<Meeting> getMeetings() {
-        return filterdMeetings;
+
+        if(filteredMeetings.isEmpty()){        }
+        return filteredMeetings;
     }
 
     @Override
     public void meetingsNoFilter() {
-        filterdMeetings =allMeetings;
-        Log.d("rrrr", " meetingsNoFilter :  " + filterdMeetings.toString());
-        Log.d("rrrr", " meetingsNoFilter... :  " + filterdMeetings);
+        filteredMeetings =allMeetings;
+        Log.d("rrrr", " meetingsNoFilter :  " + filteredMeetings.toString());
+        Log.d("rrrr", " meetingsNoFilter... :  " + filteredMeetings);
     }
 
     @Override
     public void meetingsDateFilter(String date) {
         List<Meeting> meetingsDateFilter = new ArrayList<>();
-        Format f = new SimpleDateFormat("MMMdd hh:mm");
+        Format f = new SimpleDateFormat("Md");
         String meetingDate;
         for (Meeting meeting: allMeetings) {
             meetingDate = f.format(meeting.getDate());
+            Log.d("rrrr", " meetingsDateFilter... : meetingDate = " + meetingDate);
+            Log.d("rrrr", " meetingsDateFilter... :  date = " + date);
             if(meetingDate.equals(date)){
             meetingsDateFilter.add(meeting);
             }
         }
-        filterdMeetings = meetingsDateFilter;
+        filteredMeetings = meetingsDateFilter;
         Log.d("rrrr", " meetingsDateFilter");
         Log.d("rrrr", " meetingsDateFilter :  " + meetingsDateFilter.toString());
-        Log.d("rrrr", " meetingsDateFilter :  " + filterdMeetings.toString());
-        Log.d("rrrr", " meetingsDateFilter... :  " + filterdMeetings);
+        Log.d("rrrr", " meetingsDateFilter :  " + filteredMeetings.toString());
+        Log.d("rrrr", " meetingsDateFilter... :  " + filteredMeetings);
     }
 
 
@@ -54,25 +58,25 @@ public class FakeMeetingApiService implements MeetingApiService{
         for (Meeting meeting: allMeetings) {
             if(meeting.getPlace()==place){meetingsPlaceFilter.add(meeting);}
         }
-        filterdMeetings = meetingsPlaceFilter;
+        filteredMeetings = meetingsPlaceFilter;
         Log.d("rrrr", " meetingsPlaceFilter");
         Log.d("rrrr", " meetingsPlaceFilter :  " + meetingsPlaceFilter.toString());
-        Log.d("rrrr", " meetingsPlaceFilter :  " + filterdMeetings.toString());
-        Log.d("rrrr", " meetingsPlaceFilter... :  " + filterdMeetings);
+        Log.d("rrrr", " meetingsPlaceFilter :  " + filteredMeetings.toString());
+        Log.d("rrrr", " meetingsPlaceFilter... :  " + filteredMeetings);
     }
 
     @Override
     public void deleteMeeting(Meeting meeting) {
         Log.d("rrrrr", "FakeMeetingApiService _ deleteMeeting() _ meeting.getDate().toString()  "+ meeting.getDate().toString());
         allMeetings.remove(meeting);
-        filterdMeetings.remove(meeting);
+        filteredMeetings.remove(meeting);
     }
 
     @Override
     public Meeting createMeeting(Meeting meeting, String filterOption) {
         Log.d("rrrr", "FakeMeetingApiService _ createMeeting _ filterOption =  "+filterOption);
         Log.d("rrrr", "FakeMeetingApiService _ createMeeting _ meeting.getPlace() =  "+meeting.getPlace());
-        if(meeting.getPlace()==filterOption){ filterdMeetings.add(meeting);}
+        if(meeting.getPlace()==filterOption){ filteredMeetings.add(meeting);}
         allMeetings.add(meeting);
         return meeting;
     }
