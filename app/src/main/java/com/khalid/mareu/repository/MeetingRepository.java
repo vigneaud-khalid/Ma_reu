@@ -37,8 +37,6 @@ public class MeetingRepository {
     }
 
     public List <Meeting> getMeetings() {
-        //return service.getMeetings();
-
         List<Meeting> meetingList = service.getMeetings();
 //        if (meetingList.isEmpty()){ onCreateDialog();}
         return meetingList;
@@ -64,6 +62,7 @@ public class MeetingRepository {
     }*/
 
     public void meetingsNoFilter(){
+        filterOption = "noFilter";
         service.meetingsNoFilter();
     }
 

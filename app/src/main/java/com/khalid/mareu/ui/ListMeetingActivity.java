@@ -10,7 +10,6 @@ import com.khalid.mareu.di.DI;
 import com.khalid.mareu.repository.MeetingRepository;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
-
-import butterknife.OnClick;
 
 
 public class ListMeetingActivity extends AppCompatActivity {
@@ -29,9 +24,6 @@ public class ListMeetingActivity extends AppCompatActivity {
     private ActivityListMeetingBinding binding;
     private MeetingRepository mRep;
     private MeetingFragment mMeetingFragment = new MeetingFragment();
-    public String filter = "noFilter";
-    public String filterOption;
-
     public String dateFilter = "";
 
     @Override
@@ -53,34 +45,22 @@ public class ListMeetingActivity extends AppCompatActivity {
         }
         binding.addMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
-
-            public void onClick(View view) {
-                filter = getFilter();
-                Log.d("rrrr", "ListMeetingActivity _ onCreate() _ onClick() _ filterOption  =  "+filter);
-
-                addMeeting(filter);
-            }
+            public void onClick(View view) { addMeeting();  }
         });
     }
 
     public void chooseDate(){
         int selectedYear = 2022;
-        int selectedMonth = 5;
-        int selectedDayOfMonth = 12;
+        int selectedMonth = 6;
+        int selectedDayOfMonth = 21;
         // Date Select Listener.
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year,
                                   int monthOfYear, int dayOfMonth) {
-//                EditText editTextDate = findViewById(R.id.date);
-//                editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                 dateFilter = ""+(monthOfYear + 1)+dayOfMonth;
-                Log.d("rrrr", "ListMeetingActivity _ chooseDate()_ dateFilter =  "+dateFilter);
                 setDateFilter(dateFilter);
-                Log.d("rrrr", "ListMeetingActivity _ chooseDate()  dateFilter AFTER SET=  "+dateFilter);
-                //chooseTime();
                 filterOnDate(dateFilter);
-
             }
         };
         // Create DatePickerDialog (Spinner Mode):
@@ -89,41 +69,8 @@ public class ListMeetingActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void chooseTime(){
-        boolean is24HView = true;
-        int selectedHour = 10;
-        int selectedMinute = 20;
-        int lastSelectedHour =  0;
-        int lastSelectedMinute = 0;
-
-        // Time Set Listener.
-        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                EditText editTextDate = findViewById(R.id.date);
-//                editTextDate.append(" "+hourOfDay + ":" + minute );
-                //lastSelectedHour = hourOfDay;
-                //lastSelectedMinute = minute;
-                dateFilter += hourOfDay + ":" + minute;
-            }
-        };
-        // Create TimePickerDialog:
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                timeSetListener, lastSelectedHour, lastSelectedMinute, is24HView);
-        timePickerDialog.show();
-    }
-
-
-    void addMeeting(String filterOption) {
+    void addMeeting() {
         AddMeetingActivity.navigate(this);
-    }
-
-    @OnClick(R.id.filter)
-    void filter() {
-        Log.d("rrrr", "ListMeetingActivity ---  onclick Filter");
-        // todo;
     }
 
     @Override
@@ -137,34 +84,21 @@ public class ListMeetingActivity extends AppCompatActivity {
         // if (item.getItemId()==R.id.filter_on_date) {      }
         switch (item.getItemId()) {
             case R.id.no_filter:
-                filterOption = "noFilter";
-                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption =  "+filterOption);
                 noFilter();
                 return true;
-
             case R.id.filter_on_date:
                 chooseDate();
-                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filter_on_date_ dateFilter =  "+dateFilter);
-                //filterOnDate(dateFilter);
                 return true;
             case R.id.filter_on_place_Peach:
-                filterOption = "Peach";
-                setFilter(filterOption);
-                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption(Peach)  =  "+filterOption);
-
                 filterOnPlace("Peach");
                 return true;
             case R.id.filter_on_place_Room2:
-                filterOnPlace("Room 2");
+                filterOnPlace("Room2");
                 return true;
             case R.id.filter_on_place_Room3:
-
-                filterOnPlace("Room 3");
+                filterOnPlace("Room3");
                 return true;
             case R.id.filter_on_place_Kiwi:
-                filterOption = "Kiwi";
-                setFilter(filterOption);
-                Log.d("rrrr", "ListMeetingActivity _ onOptionsItemSelected _ filterOption(Kiwi)  =  "+filterOption);
                 filterOnPlace("Kiwi");
                 return true;
             case R.id.filter_on_place_Berry:
@@ -174,58 +108,40 @@ public class ListMeetingActivity extends AppCompatActivity {
                 filterOnPlace("Cherry");
                 return true;
             case R.id.filter_on_place_Room7:
-                filterOnPlace("Room 7");
+                filterOnPlace("Room7");
                 return true;
             case R.id.filter_on_place_Room8:
-                filterOnPlace("Room 8");
+                filterOnPlace("Room8");
                 return true;
             case R.id.filter_on_place_Grape:
                 filterOnPlace("Grape");
                 return true;
             case R.id.filter_on_place_Room10:
-                filterOnPlace("Room 10");
+                filterOnPlace("Room10");
                 return true;
            default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    //public String getFilter(){ Log.d("rrrr", "ListMeetingActivity _ getFilterOption()  =  "+filterOption);return filterOption ;}
-
-    public String getFilter() {
-        return filter;
-    }
-
-    public void setFilter(String filterOption) {
-        this.filter = filterOption;
-    }
-
     public void filterOnDate(String date){
-        //date = "Jul06 10:30";
-        Log.d("rrrr", " ListMeetingActivity _ filterOnDate()... :  date = " + date);
-
         mRep.meetingsDateFilter(date);
         mMeetingFragment.initList();
     }
 
     public void noFilter(){
         mRep.meetingsNoFilter();
-        ListMeetingActivity.navigate(this);
-
+        mMeetingFragment.initList();
     }
 
     public void filterOnPlace(String room){
-        Log.d("rrrr", "ListMeetingActivity _ filterOnPlace _ filterOption(Peach)  =  "+filterOption);
-
         mRep.meetingsPlaceFilter(room);
         mMeetingFragment.initList();
-        //ListMeetingActivity.navigate(this);
     }
 
     public void setDateFilter(String dateFilter) {
         this.dateFilter = dateFilter;
     }
-
 
     public static void navigate(FragmentActivity activity) {
         Intent intent = new Intent(activity, ListMeetingActivity.class);

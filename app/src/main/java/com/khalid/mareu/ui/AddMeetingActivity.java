@@ -8,26 +8,16 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.WorkSource;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
 import com.khalid.mareu.R;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.model.Meeting;
@@ -48,8 +38,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
-        // filterOption = getIntent().getExtras().getString("filterOption","noFilter");
-        // Log.d("rrrr", "AddMeetingActivity _ onCreate _ filterOption =  "+filterOption);
 
         MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) findViewById(R.id.autocomplete_attendees);
         String[] attendees = getResources().getStringArray(R.array.attendees_array);
@@ -58,6 +46,8 @@ public class AddMeetingActivity extends AppCompatActivity {
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, attendees);
         textView.setAdapter(adapter);
         textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
+
 
         TextView textDate = findViewById(R.id.date);
         Date dateMeeting = new Date(0, 0, 1, 0, 0);
@@ -121,38 +111,31 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     public void submitButtonHandler(View view) throws ParseException {
-        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ before interfering with the id");
-        // récupérer l'id du  dernier meeting et l'incrémenter
+        // id incrementing
         int numberMeetings = DI.getMeetingRepository().getMeetings().size();
-        long firstId = DI.getMeetingRepository().getMeetings().get(0).getId();
         long lastId = DI.getMeetingRepository().getMeetings().get(numberMeetings-1).getId();
         long id = lastId +1;
-        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ numberMeetings =  "+numberMeetings);
-        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ firstId =  "+firstId);
-        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ lastId =  "+lastId);
-        Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ id =  "+id);
 
         EditText subjectEditText = (EditText) findViewById(R.id.subject);
         String subject = subjectEditText.getText().toString();
-        // control of the field
+        // control of the field subject
         if (subject.isEmpty()) {
             subjectEditText.setError("YOU HAVE TO NAME THE SUBJECT !!!");
             return;
         }
         EditText placeEditText = (EditText) findViewById(R.id.autocomplete_place);
         String place = placeEditText.getText().toString();
-        // control of the field
+        // control of the field place
         if (place.isEmpty()) {
             placeEditText.setError("YOU HAVE TO NAME THE PLACE !!!");
             return;
         }
-
         TextView textDate = (TextView) findViewById(R.id.date);
         String dateRetrieved = textDate.getText().toString();
         Toast.makeText(this, dateRetrieved, Toast.LENGTH_LONG);
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ dateRetrieved =  " + dateRetrieved);
-        // control of the field
-        //DO NOT WORK
+        // control of the field date
+        //DO NOT WORK                       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (dateRetrieved == "") {
             Toast.makeText(this,"YOU HAVE TO DEFINE THE TIME !!!", Toast.LENGTH_LONG);
             return;
@@ -167,7 +150,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         List<String> attendees = (List<String>) Arrays.asList(attendeesEditText.getEditableText().toString().split(" "));
         Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ attendees =  " + attendees);
         // control of the field
-        //DO NOT WORK
         if (attendees.isEmpty()) {
             attendeesEditText.setError("YOU HAVE TO NAME AT LEAST ONE ATTENDEE !!!");
             return;

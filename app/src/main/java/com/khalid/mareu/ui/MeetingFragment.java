@@ -46,7 +46,6 @@ public class MeetingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRep = DI.getMeetingRepository();
-        // mRep.meetingsNoFilter();
     }
 
     @Override
@@ -71,7 +70,7 @@ public class MeetingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("rrrrr", "MeetingFragment _ onResume  ");
+        //Log.d("rrrrr", "MeetingFragment _ onResume  ");
         initList();
     }
 
