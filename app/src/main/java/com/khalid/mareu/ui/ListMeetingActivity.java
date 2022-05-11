@@ -12,7 +12,6 @@ import com.khalid.mareu.repository.MeetingRepository;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,8 +35,6 @@ public class ListMeetingActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         setSupportActionBar(binding.appbar);
-        Log.d("rrrr", "ListMeetingActivity");
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_view, mMeetingFragment)
@@ -81,7 +78,6 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // if (item.getItemId()==R.id.filter_on_date) {      }
         switch (item.getItemId()) {
             case R.id.no_filter:
                 noFilter();

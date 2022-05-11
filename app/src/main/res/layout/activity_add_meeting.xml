@@ -38,7 +38,7 @@
 
 
 
-    <MultiAutoCompleteTextView
+    <AutoCompleteTextView
         android:id="@+id/autocomplete_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
