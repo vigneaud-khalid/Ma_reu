@@ -40,22 +40,22 @@ public class AddMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
 
-        MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) findViewById(R.id.autocomplete_attendees);
-        String[] attendees = getResources().getStringArray(R.array.attendees_array);
-        Log.d("rrrr", "AddMeetingActivity _ sMultiAutoCompleteTextView _ attendees =  "+attendees);
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, attendees);
-        textView.setAdapter(adapter);
-        textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
-        TextView textDate = findViewById(R.id.date);
-        Date dateMeeting = new Date(0, 0, 1, 0, 0);
-
         AutoCompleteTextView place = (AutoCompleteTextView) findViewById(R.id.autocomplete_place);
         String[] places = getResources().getStringArray(R.array.places_array);
         ArrayAdapter<String> adapterPlaces =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, places);
         place.setAdapter(adapterPlaces);
+
+        MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) findViewById(R.id.autocomplete_attendees);
+        String[] attendees = getResources().getStringArray(R.array.attendees_array);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, attendees);
+        textView.setAdapter(adapter);
+        textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
+        TextView textDate = findViewById(R.id.dateDisplay);
+        Date dateMeeting = new Date(0, 0, 1, 0, 0);
+
     }
 
     public void chooseDate(View view){
@@ -67,7 +67,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year,
                                   int monthOfYear, int dayOfMonth) {
-                TextView textDate = findViewById(R.id.date);
+                TextView textDate = findViewById(R.id.dateDisplay);
                 String day = ""+dayOfMonth;
                 if ( dayOfMonth<10) {   day = "0" + day;   }
                 String month = ""+(++monthOfYear);
@@ -91,7 +91,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                TextView textDate = findViewById(R.id.date);
+                TextView textDate = findViewById(R.id.dateDisplay);
                 String hour = ""+hourOfDay;
                 if ( hourOfDay>=0 && hourOfDay<10) {   hour = "0" + hour;   }
                 String min = ""+minute;
@@ -110,11 +110,11 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     public void submitButtonHandler(View view) throws ParseException {
         // id incrementing
-        int numberMeetings = DI.getMeetingRepository().getMeetings().size();
-        long lastId = DI.getMeetingRepository().getMeetings().get(numberMeetings-1).getId();
+        int numberMeetings = DI.getMeetingRepository().getAllMeetings().size();
+        long lastId = DI.getMeetingRepository().getAllMeetings().get(numberMeetings-1).getId();
         long id = lastId +1;
 
-        EditText subjectEditText = (EditText) findViewById(R.id.subject);
+        EditText subjectEditText = (EditText) findViewById(R.id.subjectField);
         String subject = subjectEditText.getText().toString();
         // control of the field subject
         if (subject.isEmpty()) {
@@ -128,18 +128,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             placeEditText.setError("YOU HAVE TO NAME THE PLACE !!!");
             return;
         }
-        TextView textDate = (TextView) findViewById(R.id.date);
-        String dateRetrieved = textDate.getText().toString();
-        // control of the field date
-        if (dateRetrieved == "") {
-            Toast.makeText(this,"YOU HAVE TO DEFINE THE TIME !!!", Toast.LENGTH_LONG).show();
-            return;
-        }
-        String pattern = "dd-MM-yyyy hh:mm";
-        Date date = new SimpleDateFormat(pattern).parse(dateRetrieved);
-
-        String message = date.toString();
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
 
         EditText attendeesEditText = (EditText) findViewById(R.id.autocomplete_attendees);
         List<String> attendees = (List<String>) Arrays.asList(attendeesEditText.getEditableText().toString().split(" "));
@@ -149,10 +137,19 @@ public class AddMeetingActivity extends AppCompatActivity {
             return;
         }
 
+        TextView textDate = (TextView) findViewById(R.id.dateDisplay);
+        String dateRetrieved = textDate.getText().toString();
+        // control of the field date
+        if (dateRetrieved == "") {
+            Toast.makeText(this,"YOU HAVE TO DEFINE THE TIME !!!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        String pattern = "dd-MM-yyyy hh:mm";
+        Date date = new SimpleDateFormat(pattern).parse(dateRetrieved);
+
         // create a new meeting and add it to the list
         if (subject != "" && place != "" && date != null && !attendees.isEmpty()) {
             Meeting meeting = new Meeting(id, randomNumber(), subject, place, date, attendees);
-            Log.d("rrrr", "AddMeetingActivity _ submitButtonHandler _ place =  " + place);
             DI.getMeetingRepository().createMeeting(meeting);
             ListMeetingActivity.navigate(this);
         }

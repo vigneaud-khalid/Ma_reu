@@ -14,10 +14,16 @@ public class FakeMeetingApiService implements MeetingApiService{
 
     private List<Meeting> allMeetings = FakeMeetingGenerator.generateMeetings();
     private List<Meeting> filteredMeetings = allMeetings;
+
     @Override
     public List<Meeting> getMeetings() {
         if(filteredMeetings.isEmpty()){        }
         return filteredMeetings;
+    }
+
+    @Override
+    public List<Meeting> getAllMeetings() {
+        return allMeetings;
     }
 
     @Override
@@ -38,7 +44,6 @@ public class FakeMeetingApiService implements MeetingApiService{
         }
         filteredMeetings = meetingsDateFilter;
     }
-
 
     @Override
     public void meetingsPlaceFilter(String place) {

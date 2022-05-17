@@ -9,10 +9,16 @@ import java.util.List;
 public interface MeetingApiService {
 
     /**
-     * Get all Meetings
+     * Get Meetings
      * @return {@link List}
      */
-    List<Meeting> getMeetings();
+    public List<Meeting> getMeetings();
+
+    /**
+     * Get all Meetings (noFilter)
+     * @return {@link List}
+     */
+    public List<Meeting> getAllMeetings();
 
     /**
      * Modify meeting list with no filter

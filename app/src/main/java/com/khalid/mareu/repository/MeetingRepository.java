@@ -1,5 +1,7 @@
 package com.khalid.mareu.repository;
 
+import android.widget.Toast;
+
 import com.khalid.mareu.model.Meeting;
 import com.khalid.mareu.service.FakeMeetingApiService;
 import com.khalid.mareu.service.MeetingApiService;
@@ -33,6 +35,14 @@ public class MeetingRepository {
         List<Meeting> meetingList = service.getMeetings();
 //        if (meetingList.isEmpty()){ onCreateDialog();}
         return meetingList;
+    }
+
+    public List <Meeting> getAllMeetings() {
+        List<Meeting> allMeetingList = service.getAllMeetings();
+          if (allMeetingList.isEmpty()){
+//        onCreateDialog();
+          }
+        return allMeetingList;
     }
 
     public void meetingsNoFilter(){

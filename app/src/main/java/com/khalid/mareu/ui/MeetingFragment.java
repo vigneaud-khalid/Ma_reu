@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.khalid.mareu.R;
 import com.khalid.mareu.di.DI;
@@ -62,8 +63,12 @@ public class MeetingFragment extends Fragment {
      * Init the List of meetings
      */
     public void initList() {
-
         mMeetings = mRep.getMeetings();
+//        if (mMeetings.isEmpty()){
+//            //Toast.makeText(this, "With your criteria there are no meetings",12).show();
+//            Toast.makeText(this,"With your criteria there are no meetings!", Toast.LENGTH_LONG).show();
+//     //       onCreateDialog();
+//        }
         mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
     }
 
