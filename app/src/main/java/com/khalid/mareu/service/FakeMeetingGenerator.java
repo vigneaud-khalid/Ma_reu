@@ -2,13 +2,8 @@ package com.khalid.mareu.service;
 
 import com.khalid.mareu.model.Meeting;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 

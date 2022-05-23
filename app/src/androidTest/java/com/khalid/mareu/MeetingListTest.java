@@ -1,9 +1,13 @@
 package com.khalid.mareu;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.khalid.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -12,6 +16,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
+import com.khalid.mareu.ui.AddMeetingActivity;
 import com.khalid.mareu.ui.ListMeetingActivity;
 import com.khalid.mareu.utils.DeleteViewAction;
 
@@ -28,9 +33,7 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class MeetingListTest {
 
-    // This is fixed
     private static int ITEMS_COUNT = 6;
-
     private ListMeetingActivity mActivity;
 
     @Rule
@@ -65,4 +68,100 @@ public class MeetingListTest {
         // Then : the number of element is 5
         onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT-1));
     }
+
+    /**
+     * When we click an icon addMeeeting, AddMeetingActivity is opened
+     */
+    @Test
+    public void myMeetingList_addMeeeting_shouldOpenAddMeetingActivity() {
+        // When perform a click on icon addMeeting
+        onView(ViewMatchers.withId(R.id.add_meeting))
+                .perform(click());
+        // Then : We open AddMeetingActivity
+        intended(hasComponent(AddMeetingActivity.class.getName()));
+    }
+
+    /**
+     * When we select a place, PlaceFilter should display the meetings whose place matches with the chosen place
+     */
+    @Test
+    public void myMeetingList_placeFilterMenu_shouldDisplayMeetings() {
+        // When perform a click on filterMenu
+        onView(ViewMatchers.withId(R.id.filter))
+                .perform(click());
+        // When perform a click on place Kiwi
+        onView(ViewMatchers.withId(R.id.filter_on_place_Kiwi))
+                .perform(click());
+        // Then : only one item should be displayed
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(1));
+
+        // Then : Réunion 33 should be displayed
+        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(3));
+    }
+
+    /**
+     * When we select a date, DateFilter should display the meetings whose date matches with the chosen date
+     */
+    @Test
+    public void myMeetingList_dateFilterMenu_shouldDisplayMeetings() {
+        // When perform a click on filterMenu
+        onView(ViewMatchers.withId(R.id.filter))
+                .perform(click());
+        // When perform a click on datefilter
+        onView(ViewMatchers.withId(R.id.filter_on_date))
+                .perform(click());
+        // We choose the date July 28:
+
+
+        // Then : only one item should be displayed
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(1));
+
+        // Then : Réunion E  should be displayed
+        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(5));
+    }
+
+    /**
+     * When we select noFilter, noFilter should display all meetings
+     */
+    @Test
+    public void myMeetingList_noFilterMenu_shouldDisplayAllMeetings() {
+        // When perform a click on filterMenu
+        onView(ViewMatchers.withId(R.id.filter))
+                .perform(click());
+        // When perform a click on noFilter
+        onView(ViewMatchers.withId(R.id.no_filter))
+                .perform(click());
+        // Then : 6 item should be displayed
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(6));
+
+
+        // Then : the 5 should be displayed
+        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(1 to 6));
+    }
+
+    /**
+     * When we add a new meeting, one more meeting should be displayed
+     */
+    @Test
+    public void myMeetingList_addMeeeting_shouldDisplayOneMoreMeeting() {
+        // When perform a click on icon addMeeting
+        onView(ViewMatchers.withId(R.id.add_meeting))
+                .perform(click());
+        //We fill the fields
+        //onView(ViewMatchers.withId(R.id.subjectField))
+
+
+        // When perform a click on createMeeting
+        onView(ViewMatchers.withId(R.id.confirm_add_button))
+                .perform(click());
+        // Then : 7 meetings should be displayed
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(7));
+
+        // Then : the 5 should be displayed
+        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(1 to 6));
+    }
+
+
+
+
 }

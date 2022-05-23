@@ -15,9 +15,7 @@ import com.khalid.mareu.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,7 +31,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Log.d("rrrr","MyMeetingRecyclerViewAdapter");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_meeting, parent, false);
         return new ViewHolder(view);

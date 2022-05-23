@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,18 +63,15 @@ public class MeetingFragment extends Fragment {
      */
     public void initList() {
         mMeetings = mRep.getMeetings();
-//        if (mMeetings.isEmpty()){
-//            //Toast.makeText(this, "With your criteria there are no meetings",12).show();
-//            Toast.makeText(this,"With your criteria there are no meetings!", Toast.LENGTH_LONG).show();
-//     //       onCreateDialog();
-//        }
+        if (mMeetings.isEmpty()){
+            Toast.makeText(getActivity(),"With your criteria there are no meetings!", Toast.LENGTH_LONG).show();
+        }
         mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //Log.d("rrrrr", "MeetingFragment _ onResume  ");
         initList();
     }
 
