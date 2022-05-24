@@ -7,11 +7,16 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.khalid.mareu.utils.FindPosition.atPosition;
 import static com.khalid.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.IsNull.notNullValue;
 
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -20,11 +25,14 @@ import com.khalid.mareu.ui.AddMeetingActivity;
 import com.khalid.mareu.ui.ListMeetingActivity;
 import com.khalid.mareu.utils.DeleteViewAction;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
+
+import android.widget.DatePicker;
 
 
 /**
@@ -37,8 +45,8 @@ public class MeetingListTest {
     private ListMeetingActivity mActivity;
 
     @Rule
-    public ActivityTestRule<ListMeetingActivity> mActivityRule =
-            new ActivityTestRule(ListMeetingActivity.class);
+    public IntentsTestRule<ListMeetingActivity> mActivityRule =
+            new IntentsTestRule(ListMeetingActivity.class);
     @Before
     public void setUp() {
         mActivity = mActivityRule.getActivity();
@@ -90,13 +98,13 @@ public class MeetingListTest {
         onView(ViewMatchers.withId(R.id.filter))
                 .perform(click());
         // When perform a click on place Kiwi
-        onView(ViewMatchers.withId(R.id.filter_on_place_Kiwi))
+        onView(withText("place: Kiwi"))
                 .perform(click());
         // Then : only one item should be displayed
         onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(1));
-
-        // Then : Réunion 33 should be displayed
-        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(3));
+        // Then : Meeting 33 should be displayed
+        onView(withId(R.id.list_meetings))
+                .check(matches(atPosition(0, withText("Meeting 33"))));
     }
 
     /**
@@ -108,16 +116,16 @@ public class MeetingListTest {
         onView(ViewMatchers.withId(R.id.filter))
                 .perform(click());
         // When perform a click on datefilter
-        onView(ViewMatchers.withId(R.id.filter_on_date))
+        onView(withText("choose a date"))
                 .perform(click());
         // We choose the date July 28:
-
-
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2022, 7, 28));
+        onView(withId(android.R.id.button1)).perform(click());
         // Then : only one item should be displayed
         onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(1));
-
         // Then : Réunion E  should be displayed
-        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(5));
+        onView(withId(R.id.list_meetings))
+                .check(matches(atPosition(0, withText("Réunion E"))));
     }
 
     /**

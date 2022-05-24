@@ -100,12 +100,12 @@ public class MeetingServiceTest {
     @Test
     public void getNoFilteredMeetingsWithSuccess() {
         List<Meeting> noFilteredMeetings = new ArrayList<>();
-        noFilteredMeetings = repo.getAllMeetings();
-//        Meeting meetingToDelete = repo.getMeetings().get(0);
-//        Meeting meetingToDelete2 = repo.getMeetings().get(2);
-//        noFilteredMeetings.remove(meetingToDelete);
+        noFilteredMeetings.addAll(repo.getAllMeetings());
+        //Meeting meetingToDelete = repo.getMeetings().get(0);
+        //Meeting meetingToDelete2 = repo.getMeetings().get(2);
+        //noFilteredMeetings.remove(meetingToDelete);
         repo.meetingsNoFilter();
-//        repo.deleteMeeting(meetingToDelete2);
+        //repo.deleteMeeting(meetingToDelete2);
         List<Meeting> expectedNoFilteredMeetings = repo.getMeetings();
         assertThat(noFilteredMeetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNoFilteredMeetings.toArray()));
     }
