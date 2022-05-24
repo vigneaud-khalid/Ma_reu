@@ -32,7 +32,7 @@ public class MeetingServiceTest {
     public void setup() { repo = DI.getNewInstanceRepository();   }
 
     /**
-     *  we ensure that all meetings are listed
+     *  we ensure that meetings are listed
      */
     @Test
     public void getMeetingsWithSuccess() {
@@ -42,27 +42,16 @@ public class MeetingServiceTest {
     }
 
     /**
-     *  we ensure that a meeting is deleted
+     *  we ensure that all meetings are listed
      */
     @Test
-    public void deleteMeetingWithSuccess() {
-        Meeting meetingToDelete = repo.getMeetings().get(0);
-        repo.deleteMeeting(meetingToDelete);
-        assertFalse(repo.getMeetings().contains(meetingToDelete));
+    public void getAllMeetingsWithSuccess() {
+        List<Meeting> meetings = repo.getMeetings();
+        List<Meeting> expectedMeetings = FakeMeetingGenerator.MEETINGS;
+        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
     }
 
     /**
-     *  we ensure that a meeting is created
-     */
-    @Test
-    public void createMeetingsWithSuccess() {
-        Meeting newMeeting = new Meeting(25, 1,"Test", "Kiwi", new Date(2022, 06, 21, 15, 30), Arrays.asList("ed@sst.com","alex@lamzone.com", "dav@lamzone.com") );
-        Meeting createdMeeting = repo.createMeeting(newMeeting);
-        List<Meeting> meetings = repo.getMeetings();
-        assertTrue(meetings.contains(newMeeting));
-    }
-
-     /**
      *  we ensure that meetings with PlaceFilter are listed
      */
     @Test
@@ -110,8 +99,25 @@ public class MeetingServiceTest {
         assertThat(noFilteredMeetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNoFilteredMeetings.toArray()));
     }
 
+    /**
+     *  we ensure that a meeting is created
+     */
+    @Test
+    public void createMeetingsWithSuccess() {
+        Meeting newMeeting = new Meeting(25, 1,"Test", "Kiwi", new Date(2022, 06, 21, 15, 30), Arrays.asList("ed@sst.com","alex@lamzone.com", "dav@lamzone.com") );
+        Meeting createdMeeting = repo.createMeeting(newMeeting);
+        List<Meeting> meetings = repo.getMeetings();
+        assertTrue(meetings.contains(newMeeting));
+    }
 
-
-
+    /**
+     *  we ensure that a meeting is deleted
+     */
+    @Test
+    public void deleteMeetingWithSuccess() {
+        Meeting meetingToDelete = repo.getMeetings().get(0);
+        repo.deleteMeeting(meetingToDelete);
+        assertFalse(repo.getMeetings().contains(meetingToDelete));
+    }
 }
 

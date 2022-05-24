@@ -1,7 +1,9 @@
 package com.khalid.mareu;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -33,6 +35,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 
 /**
@@ -63,31 +66,6 @@ public class MeetingListTest {
                 .check(matches(hasMinimumChildCount(1)));
     }
 
-    /**
-     * When we delete an item, the item is no more shown
-     */
-    @Test
-    public void myMeetingsList_deleteAction_shouldRemoveItem() {
-        // Given : We remove the element at position 2
-        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT));
-        // When perform a click on a delete icon
-        onView(ViewMatchers.withId(R.id.list_meetings))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
-        // Then : the number of element is 5
-        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT-1));
-    }
-
-    /**
-     * When we click an icon addMeeeting, AddMeetingActivity is opened
-     */
-    @Test
-    public void myMeetingList_addMeeeting_shouldOpenAddMeetingActivity() {
-        // When perform a click on icon addMeeting
-        onView(ViewMatchers.withId(R.id.add_meeting))
-                .perform(click());
-        // Then : We open AddMeetingActivity
-        intended(hasComponent(AddMeetingActivity.class.getName()));
-    }
 
     /**
      * When we select a place, PlaceFilter should display the meetings whose place matches with the chosen place
@@ -137,14 +115,30 @@ public class MeetingListTest {
         onView(ViewMatchers.withId(R.id.filter))
                 .perform(click());
         // When perform a click on noFilter
-        onView(ViewMatchers.withId(R.id.no_filter))
+        onView(ViewMatchers.withText("No filter"))
                 .perform(click());
         // Then : 6 item should be displayed
         onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(6));
+        // Then : we test that some meetings are displayed
+        onView(withId(R.id.list_meetings))
+                .check(matches(atPosition(0, withText("appEDF"))));
+        onView(withId(R.id.list_meetings))
+                .check(matches(atPosition(2, withText("NASA app"))));
+        onView(withId(R.id.list_meetings))
+                .check(matches(atPosition(6, withText("Project Star"))));
 
+    }
 
-        // Then : the 5 should be displayed
-        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(1 to 6));
+    /**
+     * When we click an icon addMeeting, AddMeetingActivity is opened
+     */
+    @Test
+    public void myMeetingList_addMeeting_shouldOpenAddMeetingActivity() {
+        // When perform a click on icon addMeeting
+        onView(ViewMatchers.withId(R.id.add_meeting))
+                .perform(click());
+        // Then : We open AddMeetingActivity
+        intended(hasComponent(AddMeetingActivity.class.getName()));
     }
 
     /**
@@ -153,23 +147,38 @@ public class MeetingListTest {
     @Test
     public void myMeetingList_addMeeeting_shouldDisplayOneMoreMeeting() {
         // When perform a click on icon addMeeting
-        onView(ViewMatchers.withId(R.id.add_meeting))
-                .perform(click());
+        onView(ViewMatchers.withId(R.id.add_meeting)).perform(click());
         //We fill the fields
-        //onView(ViewMatchers.withId(R.id.subjectField))
-
-
+        onView(ViewMatchers.withId(R.id.subjectField)).perform(replaceText("SuperBall"));
+        onView(ViewMatchers.withId(R.id.autocomplete_place)).perform(replaceText("Berry"));
+        onView(ViewMatchers.withId(R.id.autocomplete_attendees)).perform(replaceText("\"igor@lamzone.com\", \"ali@lamzone.com\""));
+        onView(ViewMatchers.withId(R.id.onDateSet)).perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2022, 11, 22));
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(ViewMatchers.withId(R.id.onTimeSet)).perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(15, 30));
+        onView(withId(android.R.id.button2)).perform(click());
         // When perform a click on createMeeting
         onView(ViewMatchers.withId(R.id.confirm_add_button))
                 .perform(click());
         // Then : 7 meetings should be displayed
         onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(7));
-
-        // Then : the 5 should be displayed
-        //onView(ViewMatchers.withId(R.id.list_meetings)).check(withId(1 to 6));
+        // Then : SuperBall  should be displayed
+        onView(withId(R.id.list_meetings))
+                .check(matches(atPosition(6, withText("SuperBall"))));
     }
 
-
-
-
+    /**
+     * When we delete an item, the item is no more shown
+     */
+    @Test
+    public void myMeetingsList_deleteAction_shouldRemoveItem() {
+        // Given : We remove the element at position 2
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT));
+        // When perform a click on a delete icon
+        onView(ViewMatchers.withId(R.id.list_meetings))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
+        // Then : the number of element is 5
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT-1));
+    }
 }
