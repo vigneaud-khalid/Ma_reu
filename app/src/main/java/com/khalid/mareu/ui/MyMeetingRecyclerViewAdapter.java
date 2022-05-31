@@ -1,23 +1,18 @@
 package com.khalid.mareu.ui;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.khalid.mareu.R;
 import com.khalid.mareu.events.DeleteMeetingEvent;
 import com.khalid.mareu.model.Meeting;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

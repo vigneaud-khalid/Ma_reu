@@ -16,10 +16,7 @@ public class FakeMeetingApiService implements MeetingApiService{
     private List<Meeting> filteredMeetings = allMeetings;
 
     @Override
-    public List<Meeting> getMeetings() {
-        if(filteredMeetings.isEmpty()){        }
-        return filteredMeetings;
-    }
+    public List<Meeting> getMeetings() { return filteredMeetings;  }
 
     @Override
     public List<Meeting> getAllMeetings() {
@@ -28,7 +25,7 @@ public class FakeMeetingApiService implements MeetingApiService{
 
     @Override
     public void meetingsNoFilter() {
-        filteredMeetings =allMeetings;
+        filteredMeetings = allMeetings;
     }
 
     @Override

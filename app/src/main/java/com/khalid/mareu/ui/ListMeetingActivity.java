@@ -3,12 +3,10 @@ package com.khalid.mareu.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import com.khalid.mareu.R;
 import com.khalid.mareu.databinding.ActivityListMeetingBinding;
 import com.khalid.mareu.di.DI;
 import com.khalid.mareu.repository.MeetingRepository;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +15,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 
-
 public class ListMeetingActivity extends AppCompatActivity {
 
     private ActivityListMeetingBinding binding;
+
+    public MeetingRepository getmRep() {
+        return mRep;
+    }
+
     private MeetingRepository mRep;
     private MeetingFragment mMeetingFragment = new MeetingFragment();
     public String dateFilter = "";
@@ -28,7 +30,6 @@ public class ListMeetingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mRep = DI.getMeetingRepository();
         setContentView(R.layout.activity_list_meeting);
         binding = ActivityListMeetingBinding.inflate(getLayoutInflater());

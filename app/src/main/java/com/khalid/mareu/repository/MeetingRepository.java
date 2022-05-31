@@ -11,8 +11,6 @@ import java.util.List;
  */
 public class MeetingRepository {
 
-
-
     private final MeetingApiService service;
     private String filterOption;
 
@@ -23,9 +21,6 @@ public class MeetingRepository {
 //     * Get an instance on @{@link MeetingApiService}
 //     * @return
 //     */
-//    public static MeetingApiService getMeetingApiService() {
-//        return service;
-//    }
 
     /**
      * Get always a new instance on @{@link MeetingApiService}. Useful for tests, so we ensure the context is clean.

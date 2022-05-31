@@ -64,7 +64,7 @@ public class MeetingFragment extends Fragment {
     public void initList() {
         mMeetings = mRep.getMeetings();
         if (mMeetings.isEmpty()){
-            Toast.makeText(getActivity(),"With your criteria there are no meetings!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"With your criteria there are no meeting!", Toast.LENGTH_LONG).show();
         }
         mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
     }

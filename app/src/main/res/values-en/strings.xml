@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ma réu</string>
+    <string name="title">New Meeting Form</string>
+    <string name="subject">Subject of the meeting</string>
+    <string name="subjectChoice">Name the meeting</string>
+    <string name="place">Place of the meeting</string>
+    <string name="placeChoice">Pick the place</string>
+    <string name="attendeesChoice">Attendees of the meeting</string>
+    <string name="listAttendees">Choose the attendees</string>
+    <string name="date">Date of the meeting</string>
+    <string name="dateChoice">Date of the meeting</string>
+    <string-array name="attendees_array">
+        <item>ali@lamzone.com</item>
+        <item>alex@lamzone.com</item>
+        <item>ana@lamzone.com</item>
+        <item>dav@lamzone.com</item>
+        <item>ed@sst.com"</item>
+        <item>igor@lamzone.com</item>
+        <item>lyn@lamzone.com</item>
+        <item>parker@lamzone.com</item>
+        <item>piet@lvt.com</item>
+        <item>pirodt@sst.com</item>
+        <item>piet@lvt.com</item>
+        <item>rachid@uvt.com</item>
+    </string-array>
+    <string-array name="places_array">
+        <item>Peach</item>
+        <item>Room2</item>
+        <item>Room3</item>
+        <item>Kiwi</item>
+        <item>Berry</item>
+        <item>Cherry</item>
+        <item>Room7</item>
+        <item>Room8</item>
+        <item>Grape</item>
+        <item>Room10</item>
+    </string-array>
+</resources>

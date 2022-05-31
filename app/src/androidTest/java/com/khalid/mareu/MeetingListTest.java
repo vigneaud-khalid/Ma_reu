@@ -45,6 +45,7 @@ import android.widget.TimePicker;
 public class MeetingListTest {
 
     private static int ITEMS_COUNT = 6;
+    private static int itemsCount = 0;
     private ListMeetingActivity mActivity;
 
     @Rule
@@ -109,19 +110,16 @@ public class MeetingListTest {
      */
     @Test
     public void myMeetingList_noFilterMenu_shouldDisplayAllMeetings() {
+        // Given : the number of items is known
+        itemsCount = mActivity.getmRep().getAllMeetings().size();
         // When perform a click on filterMenu
         onView(ViewMatchers.withId(R.id.filter))
                 .perform(click());
         // When perform a click on noFilter
         onView(ViewMatchers.withText("No filter"))
                 .perform(click());
-        // Then : 6 item should be displayed
-        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(6));
-        // Then : we test that some meetings are displayed
-//        onView(withId(R.id.list_meetings)).check(matches(atPosition(0, withText("appEDF"))));
-//        onView(withId(R.id.list_meetings)).check(matches(atPosition(2, withText("NASA app"))));
-//        onView(withId(R.id.list_meetings)).check(matches(atPosition(6, withText("Project Star"))));
-
+        // Then : all items should be displayed
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(itemsCount));
     }
 
     /**
@@ -140,7 +138,9 @@ public class MeetingListTest {
      * When we add a new meeting, one more meeting should be displayed
      */
     @Test
-    public void myMeetingList_addMeeeting_shouldDisplayOneMoreMeeting() {
+    public void myMeetingList_addMeeting_shouldDisplayOneMoreMeeting() {
+        // Given : the number of items is known
+        itemsCount = mActivity.getmRep().getMeetings().size();
         // When perform a click on icon addMeeting
         onView(ViewMatchers.withId(R.id.add_meeting)).perform(click());
         //We fill the fields
@@ -156,10 +156,8 @@ public class MeetingListTest {
         // When perform a click on createMeeting
         onView(ViewMatchers.withId(R.id.confirm_add_button))
                 .perform(click());
-        // Then : 7 meetings should be displayed
-        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(7));
-        // Then : SuperBall  should be displayed
-        //onView(withId(R.id.list_meetings)).check(matches(atPosition(6, withText("SuperBall"))));
+        // Then : the number of displayed elements is one more
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(itemsCount+1));
     }
 
     /**
@@ -167,12 +165,14 @@ public class MeetingListTest {
      */
     @Test
     public void myMeetingsList_deleteAction_shouldRemoveItem() {
-        // Given : We remove the element at position 2
-        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT));
-        // When perform a click on a delete icon
+        // Given : the number of elements is known
+        itemsCount = mActivity.getmRep().getMeetings().size();
+        // We ensure that the number of elements is correct
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(itemsCount));
+        // When perform a click on a delete icon and remove the element at position 2
         onView(ViewMatchers.withId(R.id.list_meetings))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
-        // Then : the number of element is 5
-        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(ITEMS_COUNT-1));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0 , new DeleteViewAction()));
+        // Then : the number of element is one less
+        onView(ViewMatchers.withId(R.id.list_meetings)).check(withItemCount(itemsCount-1));
     }
 }

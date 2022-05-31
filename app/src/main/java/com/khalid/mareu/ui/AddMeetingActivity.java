@@ -54,7 +54,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         TextView textDate = findViewById(R.id.dateDisplay);
         Date dateMeeting = new Date(0, 0, 1, 0, 0);
-
     }
 
     public void chooseDate(View view){
@@ -117,14 +116,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         String subject = subjectEditText.getText().toString();
         // control of the field subject
         if (subject.isEmpty()) {
-            subjectEditText.setError("YOU HAVE TO NAME THE SUBJECT !!!");
+            subjectEditText.setError("You have to name the subject !");
             return;
         }
         EditText placeEditText = (EditText) findViewById(R.id.autocomplete_place);
         String place = placeEditText.getText().toString();
         // control of the field place
         if (place.isEmpty()) {
-            placeEditText.setError("YOU HAVE TO NAME THE PLACE !!!");
+            placeEditText.setError("You have to name the place !");
             return;
         }
 
@@ -132,19 +131,18 @@ public class AddMeetingActivity extends AppCompatActivity {
         List<String> attendees = (List<String>) Arrays.asList(attendeesEditText.getEditableText().toString().split(" "));
         // control of the field
         if (attendees.isEmpty()) {
-            attendeesEditText.setError("YOU HAVE TO NAME AT LEAST ONE ATTENDEE !!!");
+            attendeesEditText.setError("You have to name at least one attendee !");
             return;
         }
 
         TextView textDate = (TextView) findViewById(R.id.dateDisplay);
         String dateRetrieved = textDate.getText().toString();
-        // control of the field date
-        if (dateRetrieved == "") {
-            Toast.makeText(this,"YOU HAVE TO DEFINE THE TIME !!!", Toast.LENGTH_LONG).show();
-            return;
-        }
         String pattern = "dd-MM-yyyy hh:mm";
-        Date date = new SimpleDateFormat(pattern).parse(dateRetrieved);
+        Date date = null;
+        // control of the field date
+        try { date = new SimpleDateFormat(pattern).parse(dateRetrieved); }
+        catch (Exception e){ Toast.makeText(this,"You have to define the date & time !", Toast.LENGTH_LONG).show();
+        }
 
         // create a new meeting and add it to the list
         if (subject != "" && place != "" && date != null && !attendees.isEmpty()) {
@@ -152,7 +150,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             DI.getMeetingRepository().createMeeting(meeting);
             ListMeetingActivity.navigate(this);
         }
-
     }
     public int randomNumber(){
         return ThreadLocalRandom.current().nextInt(1, 13);
