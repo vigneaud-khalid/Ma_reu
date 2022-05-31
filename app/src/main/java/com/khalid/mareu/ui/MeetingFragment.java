@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.khalid.mareu.R;
 import com.khalid.mareu.di.DI;
@@ -60,8 +61,11 @@ public class MeetingFragment extends Fragment {
     /**
      * Init the List of meetings
      */
-    private void initList() {
+    public void initList() {
         mMeetings = mRep.getMeetings();
+        if (mMeetings.isEmpty()){
+            Toast.makeText(getActivity(),"With your criteria there are no meeting!", Toast.LENGTH_LONG).show();
+        }
         mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
     }
 

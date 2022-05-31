@@ -1,6 +1,7 @@
 package com.khalid.mareu.di;
 
 import com.khalid.mareu.repository.MeetingRepository;
+import com.khalid.mareu.service.FakeMeetingApiService;
 import com.khalid.mareu.service.MeetingApiService;
 
 /**
@@ -8,7 +9,7 @@ import com.khalid.mareu.service.MeetingApiService;
  */
 public class DI {
 
-    private static MeetingRepository rep = new MeetingRepository();
+    private static MeetingRepository rep = new MeetingRepository(new FakeMeetingApiService());
 
     /**
      * Get an instance on @{@link MeetingApiService}
@@ -23,6 +24,6 @@ public class DI {
      * @return
      */
     public static MeetingRepository getNewInstanceRepository() {
-        return new MeetingRepository();
+        return new MeetingRepository(new FakeMeetingApiService());
     }
 }

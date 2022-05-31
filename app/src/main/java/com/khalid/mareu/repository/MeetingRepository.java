@@ -7,19 +7,20 @@ import com.khalid.mareu.service.MeetingApiService;
 import java.util.List;
 
 /**
- * Created by ordinateur _ Khalid _  on 29/03/2022.
+ * Created by Khalid _  on 29/03/2022.
  */
 public class MeetingRepository {
 
-    private static MeetingApiService service = new FakeMeetingApiService();
+    private final MeetingApiService service;
+    private String filterOption;
 
-     /**
-     * Get an instance on @{@link MeetingApiService}
-     * @return
-     */
-    public static MeetingApiService getMeetingApiService() {
-        return service;
+    public MeetingRepository(MeetingApiService service) {
+        this.service = service;
     }
+//     /**
+//     * Get an instance on @{@link MeetingApiService}
+//     * @return
+//     */
 
     /**
      * Get always a new instance on @{@link MeetingApiService}. Useful for tests, so we ensure the context is clean.
@@ -30,7 +31,28 @@ public class MeetingRepository {
     }
 
     public List <Meeting> getMeetings() {
-        return service.getMeetings();
+        List<Meeting> meetingList = service.getMeetings();
+        return meetingList;
+    }
+
+    public List <Meeting> getAllMeetings() {
+        List<Meeting> allMeetingList = service.getAllMeetings();
+        return allMeetingList;
+    }
+
+    public void meetingsNoFilter(){
+        filterOption = "noFilter";
+        service.meetingsNoFilter();
+    }
+
+    public void meetingsPlaceFilter(String place) {
+        filterOption = place;
+        service.meetingsPlaceFilter(place);
+    }
+
+    public void meetingsDateFilter(String date) {
+        filterOption = date;
+        service.meetingsDateFilter(date);
     }
 
     public void deleteMeeting(Meeting meeting) {
@@ -38,6 +60,7 @@ public class MeetingRepository {
     }
 
     public Meeting createMeeting(Meeting meeting) {
-       return service.createMeeting(meeting);
+        boolean isCurrentlyFiltered = meeting.getPlace().equalsIgnoreCase(filterOption);
+       return service.createMeeting(meeting, isCurrentlyFiltered);
     }
 }

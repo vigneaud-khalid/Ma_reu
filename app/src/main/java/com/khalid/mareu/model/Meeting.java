@@ -1,5 +1,6 @@
 package com.khalid.mareu.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by ordinateur _ Khalid _  on 29/03/2022.
  *  * Model object representing a Meeting
  */
-public class Meeting {
+public class Meeting implements Serializable {
     /** Identifier */
     private long id;
 
@@ -21,17 +22,17 @@ public class Meeting {
     private String place;
 
     /** time */
-    private String time;
+    private Date date;
 
     /** attendees */
     private List<String> attendees;
 
-    public Meeting(long id, int avatarColor, String subject, String place, String time, List attendees) {
+    public Meeting(long id, int avatarColor, String subject, String place, Date date, List attendees) {
         this.id = id;
         this.avatarColor = avatarColor;
         this.subject = subject;
         this.place = place;
-        this.time = time;
+        this.date = date;
         this.attendees = attendees;
     }
 
@@ -63,13 +64,9 @@ public class Meeting {
         this.place = place;
     }
 
-    public String getTime() {
-        return time;
-    }
+    public Date getDate() {  return date; }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
+    public void setDate(Date date) { this.date = date; }
 
     public List getAttendees() {
         return attendees;

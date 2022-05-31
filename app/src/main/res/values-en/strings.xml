@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ma réu</string>
     <string name="title">New Meeting Form</string>
@@ -17,6 +18,9 @@
         <item>ed@sst.com"</item>
         <item>igor@lamzone.com</item>
         <item>lyn@lamzone.com</item>
+        <item>parker@lamzone.com</item>
+        <item>piet@lvt.com</item>
+        <item>pirodt@sst.com</item>
         <item>piet@lvt.com</item>
         <item>rachid@uvt.com</item>
     </string-array>

@@ -1,22 +1,18 @@
 package com.khalid.mareu.ui;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.khalid.mareu.R;
 import com.khalid.mareu.events.DeleteMeetingEvent;
 import com.khalid.mareu.model.Meeting;
-
 import org.greenrobot.eventbus.EventBus;
-
+import java.text.SimpleDateFormat;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,7 +26,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Log.d("rrrr","MyMeetingRecyclerViewAdapter");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_meeting, parent, false);
         return new ViewHolder(view);
@@ -40,7 +35,11 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
         holder.mMeetingAvatar.setImageDrawable(holder.mMeetingAvatar.getContext().getDrawable(getAvatar(meeting.getAvatarColor())));
-        holder.mMeetingSubject.setText(meeting.getSubject()+" - "+meeting.getTime()+ " - "+meeting.getPlace());
+        String pattern = "MMMdd hh:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+
+            holder.mMeetingSubject.setText(meeting.getSubject()+" - "+dateFormat.format(meeting.getDate())+ " - "+meeting.getPlace());
+
         List<String> attendees = meeting.getAttendees();
         String attendeesList = new String();
         for(String att : attendees) {
@@ -80,14 +79,17 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public int getAvatar(int num){
         switch (num){
             case 1: return R.drawable.ic_baseline_circle_24_green;
-            case 2: return R.drawable.ic_baseline_circle_24_pink;
-            case 3: return R.drawable.ic_baseline_circle_24_yellow;
-            case 4: return R.drawable.ic_baseline_circle_24_blue;
-            case 5: return R.drawable.ic_baseline_circle_24_lightgreen;
-            case 6: return R.drawable.ic_baseline_circle_24_red;
-            case 7: return R.drawable.ic_baseline_circle_24_pastel;
-            case 8: return R.drawable.ic_baseline_circle_24_lightgreen;
-            case 9: return R.drawable.ic_baseline_circle_24_pastel;
+            case 2: return R.drawable.ic_baseline_circle_24_black;
+            case 3: return R.drawable.ic_baseline_circle_24_pink;
+            case 4: return R.drawable.ic_baseline_circle_24_yellow;
+            case 5: return R.drawable.ic_baseline_circle_24_blue;
+            case 6: return R.drawable.ic_baseline_circle_24_lightgreen;
+            case 7: return R.drawable.ic_baseline_circle_24_red;
+            case 8: return R.drawable.ic_baseline_circle_24_pastel;
+            case 9: return R.drawable.ic_baseline_circle_24_orange;
+            case 10: return R.drawable.ic_baseline_circle_24_pastel;
+            case 11: return R.drawable.ic_baseline_circle_24_lightgreen;
+            case 12: return R.drawable.ic_baseline_circle_24_orange;
             default:return R.drawable.ic_baseline_circle_24_red;
         }
     }
